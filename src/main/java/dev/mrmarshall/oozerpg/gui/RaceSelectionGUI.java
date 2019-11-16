@@ -11,6 +11,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RaceSelectionGUI implements Listener {
 
     public void open(Player p) {
@@ -19,9 +22,24 @@ public class RaceSelectionGUI implements Listener {
 
         //> Items
         ItemStack placeholder = OozeRPG.getInstance().getItemStackCreator().create(Material.PINK_STAINED_GLASS_PANE, 1, " ", true);
+
         ItemStack human = OozeRPG.getInstance().getItemStackCreator().create(Material.IRON_SWORD, 1, "§9Human", false);
+        List<String> humanLore = new ArrayList<>();
+        humanLore.add("§9§oFilled with lust they find it easy to conquer the world with force.");
+        humanLore.add("§9§oSwords are the answer.");
+        OozeRPG.getInstance().getItemStackCreator().addLore(human, humanLore);
+
         ItemStack elf = OozeRPG.getInstance().getItemStackCreator().create(Material.BOW, 1, "§bElf", false);
+        List<String> elfLore = new ArrayList<>();
+        elfLore.add("§b§oThey seek to right the wrongs that have been brought into these lands.");
+        elfLore.add("§b§oBows are the select choice of this elegant race.");
+        OozeRPG.getInstance().getItemStackCreator().addLore(elf, elfLore);
+
         ItemStack dwarf = OozeRPG.getInstance().getItemStackCreator().create(Material.WOODEN_AXE, 1, "§eDwarf", false);
+        List<String> dwarfLore = new ArrayList<>();
+        dwarfLore.add("§e§oFinding pride in craftworks they practice their");
+        dwarfLore.add("§e§owhole lives to create Legendary Axes.");
+        OozeRPG.getInstance().getItemStackCreator().addLore(dwarf, dwarfLore);
 
         //> Set Items
         gui.setItem(0, placeholder);
@@ -46,7 +64,13 @@ public class RaceSelectionGUI implements Listener {
         if (e.getView().getTitle().equals("§5Select a Race")) {
             e.setCancelled(true);
 
-
+            if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§9Human")) {
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Human");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§bElf")) {
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Elf");
+            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eDwarf")) {
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Dwarf");
+            }
         }
     }
 }

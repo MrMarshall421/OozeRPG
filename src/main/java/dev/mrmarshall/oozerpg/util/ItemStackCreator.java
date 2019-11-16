@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.List;
+
 public class ItemStackCreator {
 
     public ItemStack create(Material material, int amount, String title, boolean glow) {
@@ -21,5 +23,11 @@ public class ItemStackCreator {
 
         item.setItemMeta(itemMeta);
         return item;
+    }
+
+    public void addLore(ItemStack itemStack, List<String> lore) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setLore(lore);
+        itemStack.setItemMeta(itemMeta);
     }
 }

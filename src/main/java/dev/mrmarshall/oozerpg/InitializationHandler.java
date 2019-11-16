@@ -4,8 +4,6 @@ import dev.mrmarshall.oozerpg.commands.RaceCMD;
 import dev.mrmarshall.oozerpg.gui.RaceSelectionGUI;
 import org.bukkit.Bukkit;
 
-import java.io.File;
-
 public class InitializationHandler {
 
     public void initialize() {
@@ -25,15 +23,7 @@ public class InitializationHandler {
     }
 
     private void createFiles() {
-        File mainDir = new File("plugins/OozeRPG");
-        File playerdataDir = new File("plugins/OozeRPG/Playerdata");
-
-        if (!mainDir.exists()) {
-            mainDir.mkdir();
-        }
-
-        if (!playerdataDir.exists()) {
-            playerdataDir.mkdir();
-        }
+        OozeRPG.getInstance().getPlayerDataHandler().createDirectories();
+        OozeRPG.getInstance().getLevelingData().createFiles();
     }
 }
