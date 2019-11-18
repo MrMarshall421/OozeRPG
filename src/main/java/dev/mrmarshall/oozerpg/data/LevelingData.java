@@ -8,6 +8,14 @@ import java.io.IOException;
 
 public class LevelingData {
 
+    private File mobsFile;
+    private File levelsFile;
+
+    public LevelingData() {
+        mobsFile = new File("plugins/OozeRPG/Leveling/Mobs.yml");
+        levelsFile = new File("plugins/OozeRPG/Leveling/Levels.yml");
+    }
+
     public void createFiles() {
         File levelingDir = new File("plugins/OozeRPG/Leveling");
 
@@ -15,7 +23,6 @@ public class LevelingData {
             levelingDir.mkdir();
         }
 
-        File mobsFile = new File("plugins/OozeRPG/Leveling/Mobs.yml");
         FileConfiguration mobsFileCfg = YamlConfiguration.loadConfiguration(mobsFile);
 
         if (!mobsFile.exists()) {
@@ -82,7 +89,6 @@ public class LevelingData {
             }
         }
 
-        File levelsFile = new File("plugins/OozeRPG/Leveling/Levels.yml");
         FileConfiguration levelsFileCfg = YamlConfiguration.loadConfiguration(levelsFile);
 
         if (!levelsFile.exists()) {
@@ -142,5 +148,13 @@ public class LevelingData {
                 e.printStackTrace();
             }
         }
+    }
+
+    public File getMobsFile() {
+        return mobsFile;
+    }
+
+    public File getLevelsFile() {
+        return levelsFile;
     }
 }

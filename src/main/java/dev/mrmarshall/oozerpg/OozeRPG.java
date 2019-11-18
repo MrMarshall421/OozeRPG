@@ -4,6 +4,7 @@ import dev.mrmarshall.oozerpg.data.LevelingData;
 import dev.mrmarshall.oozerpg.data.PlayerDataHandler;
 import dev.mrmarshall.oozerpg.races.RaceManager;
 import dev.mrmarshall.oozerpg.util.ItemStackCreator;
+import dev.mrmarshall.oozerpg.util.MobManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class OozeRPG extends JavaPlugin {
@@ -14,6 +15,7 @@ public class OozeRPG extends JavaPlugin {
     private PlayerDataHandler playerDataHandler;
     private RaceManager raceManager;
     private LevelingData levelingData;
+    private MobManager mobManager;
 
     @Override
     public void onDisable() {
@@ -32,6 +34,7 @@ public class OozeRPG extends JavaPlugin {
         playerDataHandler = new PlayerDataHandler();
         raceManager = new RaceManager();
         levelingData = new LevelingData();
+        mobManager = new MobManager();
 
         initHandler.initialize();
     }
@@ -49,5 +52,9 @@ public class OozeRPG extends JavaPlugin {
 
     public LevelingData getLevelingData() {
         return levelingData;
+    }
+
+    public MobManager getMobManager() {
+        return mobManager;
     }
 }

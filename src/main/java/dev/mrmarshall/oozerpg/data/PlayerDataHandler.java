@@ -30,12 +30,16 @@ public class PlayerDataHandler {
             try {
                 playerFile.createNewFile();
                 playerFileCfg.set("level", 1);
-                playerFileCfg.set("experience", 0.0);
+                playerFileCfg.set("experience", 0);
                 playerFileCfg.save(playerFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public File getPlayerFile(UUID uuid) {
+        return new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
     }
 
     public void setPlayerRace(UUID uuid, String race) {
@@ -62,7 +66,7 @@ public class PlayerDataHandler {
         }
     }
 
-    public void setPlayerExperience(UUID uuid, double experience) {
+    public void setPlayerExperience(UUID uuid, int experience) {
         File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
