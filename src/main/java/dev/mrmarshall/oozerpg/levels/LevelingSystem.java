@@ -32,7 +32,7 @@ public class LevelingSystem implements Listener {
                 int exp = mobsCfg.getInt(mobCategory + "." + killedEntity.getName());
 
                 int nextPlayerLevel = playerFileCfg.getInt("level") + 1;
-                int expToNextLevel = levelsCfg.getInt(String.valueOf(nextPlayerLevel));
+                int expToNextLevel = playerFileCfg.getInt("experience") + levelsCfg.getInt("" + nextPlayerLevel + "");
 
                 if (exp > expToNextLevel) {
                     //> Player levels up
@@ -57,7 +57,7 @@ public class LevelingSystem implements Listener {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
         playerFileCfg.set("level", playerFileCfg.getInt("level") + 1);
-        playerFileCfg.set("experience", playerFileCfg.getInt("experience") - levelsCfg.getInt(String.valueOf(playerFileCfg.getInt("level"))));
+        playerFileCfg.set("experience", playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
 
         try {
             playerFileCfg.save(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
