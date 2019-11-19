@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
+ */
+
 package dev.mrmarshall.oozerpg.levels;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
@@ -11,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public class LevelingSystem implements Listener {
@@ -34,19 +37,15 @@ public class LevelingSystem implements Listener {
                 int nextPlayerLevel = playerFileCfg.getInt("level") + 1;
                 int expToNextLevel = playerFileCfg.getInt("experience") + levelsCfg.getInt("" + nextPlayerLevel + "");
 
-                if (exp > expToNextLevel) {
-                    //> Player levels up
-                    levelUp(p.getUniqueId());
-                    p.sendMessage(PluginMessage.prefix + "§e§lLEVEL UP! §aYou are now Level §e" + nextPlayerLevel + "§a!");
-                    p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1.0F, 1.0F);
-                } else {
-                    //> Player receives exp
-                    playerFileCfg.set("experience", playerFileCfg.getInt("experience") + exp);
-
-                    try {
-                        playerFileCfg.save(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(p.getUniqueId()));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                if (nextPlayerLevel != 51) {
+                    if (exp > expToNextLevel) {
+                        //> Player levels up
+                        levelUp(p.getUniqueId());
+                        p.sendMessage(PluginMessage.prefix + "§e§lLEVEL UP! §aYou are now Level §e" + nextPlayerLevel + "§a!");
+                        p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1.0F, 1.0F);
+                    } else {
+                        //> Player receives exp
+                        OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(p.getUniqueId(), playerFileCfg.getInt("experience") + exp);
                     }
                 }
             }
@@ -56,13 +55,7 @@ public class LevelingSystem implements Listener {
     public void levelUp(UUID uuid) {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
-        playerFileCfg.set("level", playerFileCfg.getInt("level") + 1);
-        playerFileCfg.set("experience", playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
-
-        try {
-            playerFileCfg.save(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        OozeRPG.getInstance().getPlayerDataHandler().setPlayerLevel(uuid, playerFileCfg.getInt("level") + 1);
+        OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(uuid, playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
     }
 }

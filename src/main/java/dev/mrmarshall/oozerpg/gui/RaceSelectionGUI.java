@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
+ */
+
 package dev.mrmarshall.oozerpg.gui;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
@@ -65,11 +69,11 @@ public class RaceSelectionGUI implements Listener {
             e.setCancelled(true);
 
             if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§9Human")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Human");
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "HUMAN");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§bElf")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Elf");
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "ELF");
             } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eDwarf")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "Dwarf");
+                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "DWARF");
             }
         }
     }

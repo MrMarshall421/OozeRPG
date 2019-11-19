@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
+ */
+
 package dev.mrmarshall.oozerpg;
 
 import dev.mrmarshall.oozerpg.commands.RaceCMD;
+import dev.mrmarshall.oozerpg.events.EntityDamageByEntityListener;
 import dev.mrmarshall.oozerpg.events.PlayerJoinListener;
 import dev.mrmarshall.oozerpg.gui.RaceSelectionGUI;
 import dev.mrmarshall.oozerpg.levels.LevelingSystem;
@@ -17,6 +22,7 @@ public class InitializationHandler {
     private void registerEvents() {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new LevelingSystem(), OozeRPG.getInstance());
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), OozeRPG.getInstance());
 
         //> GUIs
         Bukkit.getPluginManager().registerEvents(new RaceSelectionGUI(), OozeRPG.getInstance());
