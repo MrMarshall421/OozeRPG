@@ -56,6 +56,7 @@ public class LevelingSystem implements Listener {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerLevel(uuid, playerFileCfg.getInt("level") + 1);
+        OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(uuid, playerFileCfg.getInt("skillpoints") + 1);
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(uuid, playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
     }
 }

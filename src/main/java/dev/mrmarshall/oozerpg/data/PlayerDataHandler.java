@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
+ */
+
 package dev.mrmarshall.oozerpg.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,6 +35,7 @@ public class PlayerDataHandler {
                 playerFile.createNewFile();
                 playerFileCfg.set("level", 1);
                 playerFileCfg.set("experience", 0);
+                playerFileCfg.set("skillpoints", 0);
                 playerFileCfg.save(playerFile);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -72,6 +77,18 @@ public class PlayerDataHandler {
 
         try {
             playerFileCfg.set("experience", experience);
+            playerFileCfg.save(playerFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPlayerSkillpoints(UUID uuid, int skillpoints) {
+        File playerFile = new File("plugins/OozeRPG/Playerdata" + uuid.toString() + ".yml");
+        FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
+
+        playerFileCfg.set("skillpoints", skillpoints);
+        try {
             playerFileCfg.save(playerFile);
         } catch (IOException e) {
             e.printStackTrace();

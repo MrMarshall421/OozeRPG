@@ -5,9 +5,11 @@
 package dev.mrmarshall.oozerpg;
 
 import dev.mrmarshall.oozerpg.commands.RaceCMD;
+import dev.mrmarshall.oozerpg.commands.SkillsCMD;
 import dev.mrmarshall.oozerpg.events.EntityDamageByEntityListener;
 import dev.mrmarshall.oozerpg.events.PlayerJoinListener;
 import dev.mrmarshall.oozerpg.gui.RaceSelectionGUI;
+import dev.mrmarshall.oozerpg.gui.SkillsGUI;
 import dev.mrmarshall.oozerpg.levels.LevelingSystem;
 import org.bukkit.Bukkit;
 
@@ -26,11 +28,14 @@ public class InitializationHandler {
 
         //> GUIs
         Bukkit.getPluginManager().registerEvents(new RaceSelectionGUI(), OozeRPG.getInstance());
+        Bukkit.getPluginManager().registerEvents(new SkillsGUI(), OozeRPG.getInstance());
     }
 
     private void registerCommands() {
         RaceCMD cRaceCMD = new RaceCMD();
         OozeRPG.getInstance().getCommand("race").setExecutor(cRaceCMD);
+        SkillsCMD cSkillsCMD = new SkillsCMD();
+        OozeRPG.getInstance().getCommand("skills").setExecutor(cSkillsCMD);
     }
 
     private void createFiles() {
