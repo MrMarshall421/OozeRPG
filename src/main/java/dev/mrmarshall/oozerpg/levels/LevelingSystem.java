@@ -35,11 +35,12 @@ public class LevelingSystem implements Listener {
                 int exp = mobsCfg.getInt(mobCategory + "." + killedEntity.getName());
 
                 int nextPlayerLevel = playerFileCfg.getInt("level") + 1;
-                int expToNextLevel = playerFileCfg.getInt("experience") + levelsCfg.getInt("" + nextPlayerLevel + "");
+                int expToNextLevel = levelsCfg.getInt("" + nextPlayerLevel + "") - playerFileCfg.getInt("experience");
 
                 if (nextPlayerLevel != 51) {
-                    if (exp > expToNextLevel) {
+                    if (exp >= expToNextLevel) {
                         //> Player levels up
+                        OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(p.getUniqueId(), playerFileCfg.getInt("experience") + exp);
                         levelUp(p.getUniqueId());
                         p.sendMessage(PluginMessage.prefix + "§e§lLEVEL UP! §aYou are now Level §e" + nextPlayerLevel + "§a!");
                         p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1.0F, 1.0F);
@@ -55,8 +56,9 @@ public class LevelingSystem implements Listener {
     public void levelUp(UUID uuid) {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
-        OozeRPG.getInstance().getPlayerDataHandler().setPlayerLevel(uuid, playerFileCfg.getInt("level") + 1);
+
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(uuid, playerFileCfg.getInt("skillpoints") + 1);
+        OozeRPG.getInstance().getPlayerDataHandler().setPlayerLevel(uuid, playerFileCfg.getInt("level") + 1);
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(uuid, playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
     }
 }

@@ -68,12 +68,18 @@ public class RaceSelectionGUI implements Listener {
         if (e.getView().getTitle().equals("§5Select a Race")) {
             e.setCancelled(true);
 
-            if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§9Human")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "HUMAN");
-            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§bElf")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "ELF");
-            } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eDwarf")) {
-                OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "DWARF");
+            try {
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§9Human")) {
+                    p.closeInventory();
+                    OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "HUMAN");
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§bElf")) {
+                    p.closeInventory();
+                    OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "ELF");
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eDwarf")) {
+                    p.closeInventory();
+                    OozeRPG.getInstance().getRaceManager().selectRace(p.getUniqueId(), "DWARF");
+                }
+            } catch (NullPointerException ex) {
             }
         }
     }

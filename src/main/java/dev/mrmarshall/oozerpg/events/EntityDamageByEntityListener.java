@@ -23,27 +23,29 @@ public class EntityDamageByEntityListener implements Listener {
             String playerRace = playerFileCfg.getString("race");
             double damage = (e.getDamage() / 100) * 10;
 
-            switch (playerRace) {
-                case "HUMAN":
-                    if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Sword")) {
-                        e.setDamage(e.getDamage() + damage);
-                    }
+            if (playerRace != null) {
+                switch (playerRace) {
+                    case "HUMAN":
+                        if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Sword")) {
+                            e.setDamage(e.getDamage() + damage);
+                        }
 
-                    break;
-                case "ELF":
-                    if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Bow")) {
-                        e.setDamage(e.getDamage() + damage);
-                    }
+                        break;
+                    case "ELF":
+                        if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Bow")) {
+                            e.setDamage(e.getDamage() + damage);
+                        }
 
-                    break;
-                case "DWARF":
-                    if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Axe")) {
-                        e.setDamage(e.getDamage() + damage);
-                    }
+                        break;
+                    case "DWARF":
+                        if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Axe")) {
+                            e.setDamage(e.getDamage() + damage);
+                        }
 
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

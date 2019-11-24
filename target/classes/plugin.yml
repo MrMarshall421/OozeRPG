@@ -8,3 +8,5 @@ main: dev.mrmarshall.oozerpg.OozeRPG
 commands:
   race:
     description: Opens a GUI to select a race
+  skills:
+    description: Opens a GUI to view and upgrade skills

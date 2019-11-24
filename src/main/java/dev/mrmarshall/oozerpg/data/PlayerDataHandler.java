@@ -4,6 +4,7 @@
 
 package dev.mrmarshall.oozerpg.data;
 
+import dev.mrmarshall.oozerpg.OozeRPG;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -36,7 +37,6 @@ public class PlayerDataHandler {
                 playerFileCfg.set("level", 1);
                 playerFileCfg.set("experience", 0);
                 playerFileCfg.set("skillpoints", 0);
-                playerFileCfg.save(playerFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,45 +51,37 @@ public class PlayerDataHandler {
         File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
-        try {
-            playerFileCfg.set("race", race.toUpperCase());
-            playerFileCfg.save(playerFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        playerFileCfg.set("race", race.toUpperCase());
+        OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
     }
 
     public void setPlayerLevel(UUID uuid, int level) {
         File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
-        try {
-            playerFileCfg.set("level", level);
-            playerFileCfg.save(playerFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        playerFileCfg.set("level", level);
+        OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
     }
 
     public void setPlayerExperience(UUID uuid, int experience) {
         File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
-        try {
-            playerFileCfg.set("experience", experience);
-            playerFileCfg.save(playerFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        playerFileCfg.set("experience", experience);
+        OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
     }
 
     public void setPlayerSkillpoints(UUID uuid, int skillpoints) {
-        File playerFile = new File("plugins/OozeRPG/Playerdata" + uuid.toString() + ".yml");
+        File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
         playerFileCfg.set("skillpoints", skillpoints);
+        OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
+    }
+
+    public void savePlayerFile(File file, FileConfiguration playerFileCfg) {
         try {
-            playerFileCfg.save(playerFile);
+            playerFileCfg.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }

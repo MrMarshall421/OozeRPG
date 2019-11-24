@@ -97,11 +97,18 @@ public class SkillsGUI implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
+        HumanCombatSkillsGUI humanCombatSkillsGUI = new HumanCombatSkillsGUI();
 
         if (e.getView().getTitle().equals("§5Your Skills")) {
             e.setCancelled(true);
 
-
+            try {
+                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
+                    p.closeInventory();
+                    humanCombatSkillsGUI.open(p);
+                }
+            } catch (NullPointerException ex) {
+            }
         }
     }
 }
