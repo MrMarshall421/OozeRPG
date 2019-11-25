@@ -69,7 +69,7 @@ public class HumanCombatSkillsGUI implements Listener {
         File playerFile = OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(p.getUniqueId());
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
         int currentSkillLevel = Integer.parseInt(item.getItemMeta().getLore().get(0).replaceAll("§9§o", "").substring(0, 1));
-        int maxSkillLevel = Integer.parseInt(item.getItemMeta().getLore().get(0).replaceAll("§9§o", "").substring(2, 2));
+        int maxSkillLevel = Integer.parseInt(item.getItemMeta().getLore().get(0).replaceAll("§9§o", "").substring(2, 3));
         int skillpoints = playerFileCfg.getInt("skillpoints");
 
         if (currentSkillLevel < maxSkillLevel) {
