@@ -7,6 +7,7 @@ package dev.mrmarshall.oozerpg.gui;
 import dev.mrmarshall.oozerpg.OozeRPG;
 import dev.mrmarshall.oozerpg.util.PluginMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,7 +47,7 @@ public class HumanCombatSkillsGUI implements Listener {
             e.setCancelled(true);
 
             try {
-                if (e.getCurrentItem().getItemMeta().getDisplayName().contains("§f§lBACK")) {
+                if (e.getSlot() == 35) {
                     p.closeInventory();
                     skillsGUI.open(p);
                 } else if (!e.getCurrentItem().getItemMeta().getDisplayName().equals("§e§lYOU")) {
@@ -54,7 +55,28 @@ public class HumanCombatSkillsGUI implements Listener {
                     if (skillpoints > 0) {
                         if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§4Damage §l1")) {
                             //> Damage 1
-                            buySkillUpgrade("skills.combat.damage1.level", e.getCurrentItem(), p);
+                            buySkillUpgrade("skills.combat.damage1.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§2Tank §l1")) {
+                            //> Tank 1
+                            buySkillUpgrade("skills.combat.tank1.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§1Lifesteal §l1")) {
+                            //> Lifesteal 1
+                            buySkillUpgrade("skills.combat.lifesteal1.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§5Training §l1")) {
+                            //> Training 1
+                            buySkillUpgrade("skills.combat.training1.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Tank §l2")) {
+                            //> Tank 2
+                            buySkillUpgrade("skills.combat.tank2.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eDamage §l2")) {
+                            //> Damage 2
+                            buySkillUpgrade("skills.combat.damage2.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§aGreed §l1")) {
+                            //> Greed 1
+                            buySkillUpgrade("skills.combat.greed1.level", e.getCurrentItem(), e.getSlot(), p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8Mastertank")) {
+                            //> Mastertank
+                            buySkillUpgrade("skills.combat.mastertank.level", e.getCurrentItem(), e.getSlot(), p);
                         }
                     } else {
                         p.sendMessage(PluginMessage.prefix + "§c§lERROR! §cYou have no skillpoints to spend!");
@@ -65,7 +87,7 @@ public class HumanCombatSkillsGUI implements Listener {
         }
     }
 
-    private void buySkillUpgrade(String skill, ItemStack item, Player p) {
+    private void buySkillUpgrade(String skill, ItemStack item, int slot, Player p) {
         File playerFile = OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(p.getUniqueId());
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
         int currentSkillLevel = Integer.parseInt(item.getItemMeta().getLore().get(0).replaceAll("§9§o", "").substring(0, 1));
@@ -73,14 +95,31 @@ public class HumanCombatSkillsGUI implements Listener {
         int skillpoints = playerFileCfg.getInt("skillpoints");
 
         if (currentSkillLevel < maxSkillLevel) {
-            //> Upgrade Skill
-            playerFileCfg.set(skill, (currentSkillLevel + 1) + "/" + maxSkillLevel);
-            OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
-            OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(p.getUniqueId(), skillpoints - 1);
+            //> Check if previous skill is maxed
+            String previousItem;
+            int previousItemSlot;
+            int previousItemLevel;
+            int previousItemMaxLevel;
+            if (p.getOpenInventory().getTopInventory().getItem(slot - 1).getType() != Material.RED_STAINED_GLASS_PANE) {
+                previousItemSlot = slot - 1;
+            } else {
+                previousItemSlot = slot - 2;
+            }
+            previousItem = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getItemMeta().getDisplayName()).replaceAll(" ", "").toLowerCase();
+            previousItemLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(0, 1));
+            previousItemMaxLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(2, 3));
+            if (previousItemLevel == previousItemMaxLevel) {
+                //> Upgrade Skill
+                playerFileCfg.set(skill, (currentSkillLevel + 1) + "/" + maxSkillLevel);
+                OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
+                OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(p.getUniqueId(), skillpoints - 1);
 
-            refreshInventory(p.getOpenInventory().getTopInventory(), p);
+                refreshInventory(p.getOpenInventory().getTopInventory(), p);
 
-            p.sendMessage(PluginMessage.prefix + "§aSkill Successfully upgraded!");
+                p.sendMessage(PluginMessage.prefix + "§aSkill Successfully upgraded!");
+            } else {
+                p.sendMessage(PluginMessage.prefix + "§c§lERROR! §cYou need to upgrade the previous skill before you can purchase this one!");
+            }
         } else {
             p.sendMessage(PluginMessage.prefix + "§c§lERROR! §cThis skill is already Max-level!");
         }
