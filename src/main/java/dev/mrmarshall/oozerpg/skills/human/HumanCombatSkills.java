@@ -2,9 +2,9 @@
  * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
  */
 
-package dev.mrmarshall.oozerpg.skills;
+package dev.mrmarshall.oozerpg.skills.human;
 
-public class CombatSkills {
+public class HumanCombatSkills {
 
     public double calculateDamage1(int level) {
         double percentagePerLevel = 1.5;

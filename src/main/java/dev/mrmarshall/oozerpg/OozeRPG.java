@@ -7,7 +7,8 @@ package dev.mrmarshall.oozerpg;
 import dev.mrmarshall.oozerpg.data.LevelingData;
 import dev.mrmarshall.oozerpg.data.PlayerDataHandler;
 import dev.mrmarshall.oozerpg.races.RaceManager;
-import dev.mrmarshall.oozerpg.skills.CombatSkills;
+import dev.mrmarshall.oozerpg.skills.human.HumanCombatSkills;
+import dev.mrmarshall.oozerpg.skills.human.HumanMovementSkills;
 import dev.mrmarshall.oozerpg.util.ItemStackCreator;
 import dev.mrmarshall.oozerpg.util.MobManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,7 +22,8 @@ public class OozeRPG extends JavaPlugin {
     private RaceManager raceManager;
     private LevelingData levelingData;
     private MobManager mobManager;
-    private CombatSkills combatSkills;
+    private HumanCombatSkills humanCombatSkills;
+    private HumanMovementSkills humanMovementSkills;
 
     public static OozeRPG getInstance() {
         return instance;
@@ -36,7 +38,8 @@ public class OozeRPG extends JavaPlugin {
         raceManager = new RaceManager();
         levelingData = new LevelingData();
         mobManager = new MobManager();
-        combatSkills = new CombatSkills();
+        humanCombatSkills = new HumanCombatSkills();
+        humanMovementSkills = new HumanMovementSkills();
 
         initHandler.initialize();
     }
@@ -61,7 +64,11 @@ public class OozeRPG extends JavaPlugin {
         return mobManager;
     }
 
-    public CombatSkills getCombatSkills() {
-        return combatSkills;
+    public HumanCombatSkills getCombatSkills() {
+        return humanCombatSkills;
+    }
+
+    public HumanMovementSkills getHumanMovementSkills() {
+        return humanMovementSkills;
     }
 }

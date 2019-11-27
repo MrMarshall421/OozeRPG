@@ -32,7 +32,7 @@ public class RaceManager {
 
                 //> Movement Skills
                 playerFileCfg.set("skills.movement.speed1.level", "0/5");
-                playerFileCfg.set("skills.movement.doge1.level", "0/5");
+                playerFileCfg.set("skills.movement.dodge1.level", "0/5");
                 playerFileCfg.set("skills.movement.mystical1.level", "0/5");
                 playerFileCfg.set("skills.movement.scamper1.level", "0/5");
                 playerFileCfg.set("skills.movement.mystical2.level", "0/5");

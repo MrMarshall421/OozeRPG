@@ -5,6 +5,8 @@
 package dev.mrmarshall.oozerpg.gui;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
+import dev.mrmarshall.oozerpg.gui.human.HumanCombatSkillsGUI;
+import dev.mrmarshall.oozerpg.gui.human.HumanMovementSkillsGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -98,6 +100,7 @@ public class SkillsGUI implements Listener {
     public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         HumanCombatSkillsGUI humanCombatSkillsGUI = new HumanCombatSkillsGUI();
+        HumanMovementSkillsGUI humanMovementSkillsGUI = new HumanMovementSkillsGUI();
 
         if (e.getView().getTitle().equals("§5Your Skills")) {
             e.setCancelled(true);
@@ -106,8 +109,12 @@ public class SkillsGUI implements Listener {
                 if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
                     p.closeInventory();
                     humanCombatSkillsGUI.open(p);
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
+                    p.closeInventory();
+                    humanMovementSkillsGUI.open(p);
                 }
             } catch (NullPointerException ex) {
+                ex.printStackTrace();
             }
         }
     }

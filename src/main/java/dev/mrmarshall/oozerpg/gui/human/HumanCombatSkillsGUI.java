@@ -2,9 +2,10 @@
  * Copyright (c) 2019. MrMarshall Development. The commercial usage of this content is only allowed with an exclusive permission by MrMarshall Developments.
  */
 
-package dev.mrmarshall.oozerpg.gui;
+package dev.mrmarshall.oozerpg.gui.human;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
+import dev.mrmarshall.oozerpg.gui.SkillsGUI;
 import dev.mrmarshall.oozerpg.util.PluginMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -79,10 +80,13 @@ public class HumanCombatSkillsGUI implements Listener {
                             buySkillUpgrade("skills.combat.mastertank.level", e.getCurrentItem(), e.getSlot(), p);
                         }
                     } else {
-                        p.sendMessage(PluginMessage.prefix + "§c§lERROR! §cYou have no skillpoints to spend!");
+                        if (e.getCurrentItem().getType() != Material.RED_STAINED_GLASS_PANE) {
+                            p.sendMessage(PluginMessage.prefix + "§c§lERROR! §cYou have no skillpoints to spend!");
+                        }
                     }
                 }
             } catch (NullPointerException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -98,16 +102,20 @@ public class HumanCombatSkillsGUI implements Listener {
             //> Check if previous skill is maxed
             String previousItem;
             int previousItemSlot;
-            int previousItemLevel;
-            int previousItemMaxLevel;
+            int previousItemLevel = 0;
+            int previousItemMaxLevel = 0;
             if (p.getOpenInventory().getTopInventory().getItem(slot - 1).getType() != Material.RED_STAINED_GLASS_PANE) {
                 previousItemSlot = slot - 1;
             } else {
                 previousItemSlot = slot - 2;
             }
-            previousItem = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getItemMeta().getDisplayName()).replaceAll(" ", "").toLowerCase();
-            previousItemLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(0, 1));
-            previousItemMaxLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(2, 3));
+
+            if (p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getType() != Material.RED_STAINED_GLASS_PANE) {
+                previousItem = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getItemMeta().getDisplayName()).replaceAll(" ", "").toLowerCase();
+                previousItemLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(0, 1));
+                previousItemMaxLevel = Integer.parseInt(playerFileCfg.getString("skills.combat." + previousItem + ".level").substring(2, 3));
+            }
+
             if (previousItemLevel == previousItemMaxLevel) {
                 //> Upgrade Skill
                 playerFileCfg.set(skill, (currentSkillLevel + 1) + "/" + maxSkillLevel);
