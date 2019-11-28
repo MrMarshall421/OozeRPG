@@ -64,7 +64,7 @@ public class OozeRPG extends JavaPlugin {
         return mobManager;
     }
 
-    public HumanCombatSkills getCombatSkills() {
+    public HumanCombatSkills getHumanCombatSkills() {
         return humanCombatSkills;
     }
 

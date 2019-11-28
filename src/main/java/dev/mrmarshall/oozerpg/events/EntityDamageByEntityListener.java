@@ -36,7 +36,7 @@ public class EntityDamageByEntityListener implements Listener {
                             if (p.getInventory().getItemInMainHand().getType().name().contains("SWORD")) {
                                 damage = damage + (e.getDamage() / 100.0) * 10.0;
 
-                                double greed1SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateGreed1(Integer.parseInt(playerFileCfg.getString("skills.combat.greed1.level").substring(0, 1)));
+                                double greed1SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateGreed1(Integer.parseInt(playerFileCfg.getString("skills.combat.greed1.level").substring(0, 1)));
                                 Random greedRandom = new Random();
                                 int greedRandomResult = 1 + greedRandom.nextInt(100);
                                 if (greedRandomResult <= greed1SkillBuff) {
@@ -44,13 +44,13 @@ public class EntityDamageByEntityListener implements Listener {
                                 }
                             }
 
-                            double damage1SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateDamage1(Integer.parseInt(playerFileCfg.getString("skills.combat.damage1.level").substring(0, 1)));
+                            double damage1SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateDamage1(Integer.parseInt(playerFileCfg.getString("skills.combat.damage1.level").substring(0, 1)));
                             damage = damage + (e.getDamage() / 100.0) * damage1SkillBuff;
 
-                            double damage2SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateDamage2(Integer.parseInt(playerFileCfg.getString("skills.combat.damage2.level").substring(0, 1)));
+                            double damage2SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateDamage2(Integer.parseInt(playerFileCfg.getString("skills.combat.damage2.level").substring(0, 1)));
                             damage = damage + (e.getDamage() / 100.0) * damage2SkillBuff;
 
-                            double lifesteal1SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateLifesteal1(Integer.parseInt(playerFileCfg.getString("skills.combat.lifesteal1.level").substring(0, 1)));
+                            double lifesteal1SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateLifesteal1(Integer.parseInt(playerFileCfg.getString("skills.combat.lifesteal1.level").substring(0, 1)));
                             p.setHealth(p.getHealth() + ((e.getDamage() / 100.0) * lifesteal1SkillBuff));
                             ((LivingEntity) e.getEntity()).setHealth((e.getDamage() / 100.0) * lifesteal1SkillBuff);
 
@@ -93,19 +93,31 @@ public class EntityDamageByEntityListener implements Listener {
                 try {
                     switch (playerRace) {
                         case "HUMAN":
-                            double tank1SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateTank1(Integer.parseInt(playerFileCfg.getString("skills.combat.tank1.level").substring(0, 1)));
+                            double tank1SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateTank1(Integer.parseInt(playerFileCfg.getString("skills.combat.tank1.level").substring(0, 1)));
                             damage = damage - (e.getDamage() / 100.0) * tank1SkillBuff;
 
-                            double tank2SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateTank2(Integer.parseInt(playerFileCfg.getString("skills.combat.tank2.level").substring(0, 1)));
+                            double tank2SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateTank2(Integer.parseInt(playerFileCfg.getString("skills.combat.tank2.level").substring(0, 1)));
                             damage = damage - (e.getDamage() / 100.0) * tank2SkillBuff;
 
-                            double mastertankSkillBuff = OozeRPG.getInstance().getCombatSkills().calculateMastertank(Integer.parseInt(playerFileCfg.getString("skills.combat.mastertank.level").substring(0, 1)));
+                            double mastertankSkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateMastertank(Integer.parseInt(playerFileCfg.getString("skills.combat.mastertank.level").substring(0, 1)));
                             damage = damage - (e.getDamage() / 100.0) * mastertankSkillBuff;
+
+                            Random trainingRandom = new Random();
+                            int trainingRandomResult = 1 + trainingRandom.nextInt(100);
+                            double training1SkillBuff = OozeRPG.getInstance().getHumanCombatSkills().calculateTraining1(Integer.parseInt(playerFileCfg.getString("skills.combat.training1.level").substring(0, 1)));
+                            if (trainingRandomResult <= training1SkillBuff) {
+                                //> Dodge attack
+                                e.setCancelled(true);
+                                p.sendMessage(PluginMessage.prefix + "§d§oYou dodged the attack from " + e.getDamager().getName());
+                                if (e.getDamager() instanceof Player) {
+                                    p.sendMessage(PluginMessage.prefix + "§d§o" + p.getName() + " dodged your attack!");
+                                }
+                            }
 
                             Random dodgeRandom = new Random();
                             int dodgeRandomResult = 1 + dodgeRandom.nextInt(100);
-                            double training1SkillBuff = OozeRPG.getInstance().getCombatSkills().calculateTraining1(Integer.parseInt(playerFileCfg.getString("skills.combat.training1.level").substring(0, 1)));
-                            if (dodgeRandomResult <= training1SkillBuff) {
+                            double dodge1SkillBuff = OozeRPG.getInstance().getHumanMovementSkills().calculateDodge1(Integer.parseInt(playerFileCfg.getString("skills.movement.dodge1.level")));
+                            if (dodgeRandomResult <= dodge1SkillBuff) {
                                 //> Dodge attack
                                 e.setCancelled(true);
                                 p.sendMessage(PluginMessage.prefix + "§d§oYou dodged the attack from " + e.getDamager().getName());

@@ -140,7 +140,7 @@ public class HumanCombatSkillsGUI implements Listener {
         ItemStack placeholder = OozeRPG.getInstance().getItemStackCreator().create(Material.RED_STAINED_GLASS_PANE, 1, " ", true);
 
         String damage1Level = playerFileCfg.getString("skills.combat.damage1.level");
-        double damage1Percentage = OozeRPG.getInstance().getCombatSkills().calculateDamage1(Integer.parseInt(damage1Level.substring(0, 1)));
+        double damage1Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateDamage1(Integer.parseInt(damage1Level.substring(0, 1)));
         ItemStack damage1 = OozeRPG.getInstance().getItemStackCreator().create(Material.ROSE_RED, 1, "§4Damage §l1", false);
         List<String> damage1Lore = new ArrayList<>();
         damage1Lore.add("§9§o" + damage1Level + " Levels unlocked");
@@ -148,7 +148,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(damage1, damage1Lore);
 
         String tank1Level = playerFileCfg.getString("skills.combat.tank1.level");
-        double tank1Percentage = OozeRPG.getInstance().getCombatSkills().calculateTank1(Integer.parseInt(tank1Level.substring(0, 1)));
+        double tank1Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateTank1(Integer.parseInt(tank1Level.substring(0, 1)));
         ItemStack tank1 = OozeRPG.getInstance().getItemStackCreator().create(Material.CACTUS_GREEN, 1, "§2Tank §l1", false);
         List<String> tank1Lore = new ArrayList<>();
         tank1Lore.add("§9§o" + tank1Level + " Levels unlocked");
@@ -156,7 +156,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(tank1, tank1Lore);
 
         String lifesteal1Level = playerFileCfg.getString("skills.combat.lifesteal1.level");
-        double lifesteal1Percentage = OozeRPG.getInstance().getCombatSkills().calculateLifesteal1(Integer.parseInt(lifesteal1Level.substring(0, 1)));
+        double lifesteal1Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateLifesteal1(Integer.parseInt(lifesteal1Level.substring(0, 1)));
         ItemStack lifesteal1 = OozeRPG.getInstance().getItemStackCreator().create(Material.LAPIS_LAZULI, 1, "§1Lifesteal §l1", false);
         List<String> lifesteal1Lore = new ArrayList<>();
         lifesteal1Lore.add("§9§o" + lifesteal1Level + " Levels unlocked");
@@ -164,7 +164,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(lifesteal1, lifesteal1Lore);
 
         String training1Level = playerFileCfg.getString("skills.combat.training1.level");
-        double training1Percentage = OozeRPG.getInstance().getCombatSkills().calculateTraining1(Integer.parseInt(training1Level.substring(0, 1)));
+        double training1Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateTraining1(Integer.parseInt(training1Level.substring(0, 1)));
         ItemStack training1 = OozeRPG.getInstance().getItemStackCreator().create(Material.MAGENTA_DYE, 1, "§5Training §l1", false);
         List<String> training1Lore = new ArrayList<>();
         training1Lore.add("§9§o" + training1Level + " Levels unlocked");
@@ -172,7 +172,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(training1, training1Lore);
 
         String tank2Level = playerFileCfg.getString("skills.combat.tank2.level");
-        double tank2Percentage = OozeRPG.getInstance().getCombatSkills().calculateTank2(Integer.parseInt(tank2Level.substring(0, 1)));
+        double tank2Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateTank2(Integer.parseInt(tank2Level.substring(0, 1)));
         ItemStack tank2 = OozeRPG.getInstance().getItemStackCreator().create(Material.CYAN_DYE, 1, "§3Tank §l2", false);
         List<String> tank2Lore = new ArrayList<>();
         tank2Lore.add("§9§o" + tank2Level + " Levels unlocked");
@@ -180,7 +180,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(tank2, tank2Lore);
 
         String damage2Level = playerFileCfg.getString("skills.combat.damage2.level");
-        double damage2Percentage = OozeRPG.getInstance().getCombatSkills().calculateDamage2(Integer.parseInt(damage2Level.substring(0, 1)));
+        double damage2Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateDamage2(Integer.parseInt(damage2Level.substring(0, 1)));
         ItemStack damage2 = OozeRPG.getInstance().getItemStackCreator().create(Material.DANDELION_YELLOW, 1, "§eDamage §l2", false);
         List<String> damage2Lore = new ArrayList<>();
         damage2Lore.add("§9§o" + damage2Level + " Levels unlocked");
@@ -188,7 +188,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(damage2, damage2Lore);
 
         String greed1Level = playerFileCfg.getString("skills.combat.greed1.level");
-        double greed1Percentage = OozeRPG.getInstance().getCombatSkills().calculateGreed1(Integer.parseInt(greed1Level.substring(0, 1)));
+        double greed1Percentage = OozeRPG.getInstance().getHumanCombatSkills().calculateGreed1(Integer.parseInt(greed1Level.substring(0, 1)));
         ItemStack greed1 = OozeRPG.getInstance().getItemStackCreator().create(Material.LIME_DYE, 1, "§aGreed §l1", false);
         List<String> greed1Lore = new ArrayList<>();
         greed1Lore.add("§9§o" + greed1Level + " Levels unlocked");
@@ -196,7 +196,7 @@ public class HumanCombatSkillsGUI implements Listener {
         OozeRPG.getInstance().getItemStackCreator().addLore(greed1, greed1Lore);
 
         String mastertankLevel = playerFileCfg.getString("skills.combat.mastertank.level");
-        double mastertankPercentage = OozeRPG.getInstance().getCombatSkills().calculateMastertank(Integer.parseInt(mastertankLevel.substring(0, 1)));
+        double mastertankPercentage = OozeRPG.getInstance().getHumanCombatSkills().calculateMastertank(Integer.parseInt(mastertankLevel.substring(0, 1)));
         ItemStack mastertank = OozeRPG.getInstance().getItemStackCreator().create(Material.GRAY_DYE, 1, "§8Mastertank", false);
         List<String> mastertankLore = new ArrayList<>();
         mastertankLore.add("§9§o" + mastertankLevel + " Levels unlocked");

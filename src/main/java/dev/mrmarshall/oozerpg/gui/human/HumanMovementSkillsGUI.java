@@ -116,6 +116,7 @@ public class HumanMovementSkillsGUI implements Listener {
                 OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(p.getUniqueId(), skillpoints - 1);
 
                 refreshInventory(p.getOpenInventory().getTopInventory(), p);
+                OozeRPG.getInstance().getHumanMovementSkills().setPlayerWalkingSpeed(p);
 
                 p.sendMessage(PluginMessage.prefix + "§aSkill Successfully upgraded!");
             } else {
