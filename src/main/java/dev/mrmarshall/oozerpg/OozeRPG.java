@@ -11,6 +11,7 @@ import dev.mrmarshall.oozerpg.skills.human.HumanCombatSkills;
 import dev.mrmarshall.oozerpg.skills.human.HumanMovementSkills;
 import dev.mrmarshall.oozerpg.util.ItemStackCreator;
 import dev.mrmarshall.oozerpg.util.MobManager;
+import dev.mrmarshall.oozerpg.util.SchedulerManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class OozeRPG extends JavaPlugin {
@@ -22,6 +23,7 @@ public class OozeRPG extends JavaPlugin {
     private RaceManager raceManager;
     private LevelingData levelingData;
     private MobManager mobManager;
+    private SchedulerManager schedulerManager;
     private HumanCombatSkills humanCombatSkills;
     private HumanMovementSkills humanMovementSkills;
 
@@ -38,6 +40,7 @@ public class OozeRPG extends JavaPlugin {
         raceManager = new RaceManager();
         levelingData = new LevelingData();
         mobManager = new MobManager();
+        schedulerManager = new SchedulerManager();
         humanCombatSkills = new HumanCombatSkills();
         humanMovementSkills = new HumanMovementSkills();
 
@@ -60,14 +63,18 @@ public class OozeRPG extends JavaPlugin {
     public LevelingData getLevelingData() {
         return levelingData;
     }
+
     public MobManager getMobManager() {
         return mobManager;
+    }
+
+    public SchedulerManager getSchedulerManager() {
+        return schedulerManager;
     }
 
     public HumanCombatSkills getHumanCombatSkills() {
         return humanCombatSkills;
     }
-
     public HumanMovementSkills getHumanMovementSkills() {
         return humanMovementSkills;
     }

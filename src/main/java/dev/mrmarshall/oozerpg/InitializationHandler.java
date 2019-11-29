@@ -8,6 +8,7 @@ import dev.mrmarshall.oozerpg.commands.RaceCMD;
 import dev.mrmarshall.oozerpg.commands.SkillsCMD;
 import dev.mrmarshall.oozerpg.events.EntityDamageByEntityListener;
 import dev.mrmarshall.oozerpg.events.PlayerJoinListener;
+import dev.mrmarshall.oozerpg.events.PlayerQuitListener;
 import dev.mrmarshall.oozerpg.gui.RaceSelectionGUI;
 import dev.mrmarshall.oozerpg.gui.SkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanCombatSkillsGUI;
@@ -27,6 +28,7 @@ public class InitializationHandler {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new LevelingSystem(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), OozeRPG.getInstance());
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), OozeRPG.getInstance());
 
         //> GUIs
         Bukkit.getPluginManager().registerEvents(new RaceSelectionGUI(), OozeRPG.getInstance());
