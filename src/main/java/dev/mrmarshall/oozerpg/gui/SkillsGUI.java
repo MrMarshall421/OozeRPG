@@ -5,6 +5,7 @@
 package dev.mrmarshall.oozerpg.gui;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
+import dev.mrmarshall.oozerpg.gui.elf.ElfMovementSkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanCombatSkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanMovementSkillsGUI;
 import org.bukkit.Bukkit;
@@ -20,6 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,22 +101,42 @@ public class SkillsGUI implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        HumanCombatSkillsGUI humanCombatSkillsGUI = new HumanCombatSkillsGUI();
-        HumanMovementSkillsGUI humanMovementSkillsGUI = new HumanMovementSkillsGUI();
+        File playerFile = OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(p.getUniqueId());
+        FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
+        String race = playerFileCfg.getString("race");
 
         if (e.getView().getTitle().equals("§5Your Skills")) {
             e.setCancelled(true);
 
-            try {
-                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
-                    p.closeInventory();
-                    humanCombatSkillsGUI.open(p);
-                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
-                    p.closeInventory();
-                    humanMovementSkillsGUI.open(p);
-                }
-            } catch (NullPointerException ex) {
-                ex.printStackTrace();
+            switch (race) {
+                case "HUMAN":
+                    HumanCombatSkillsGUI humanCombatSkillsGUI = new HumanCombatSkillsGUI();
+                    HumanMovementSkillsGUI humanMovementSkillsGUI = new HumanMovementSkillsGUI();
+
+                    try {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
+                            p.closeInventory();
+                            humanCombatSkillsGUI.open(p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
+                            p.closeInventory();
+                            humanMovementSkillsGUI.open(p);
+                        }
+                    } catch (NullPointerException ex) {
+                    }
+                    break;
+                case "ELF":
+                    ElfMovementSkillsGUI elfMovementSkillsGUI = new ElfMovementSkillsGUI();
+
+                    try {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
+                            p.closeInventory();
+                            elfMovementSkillsGUI.open(p);
+                        }
+                    } catch (NullPointerException ex) {
+                    }
+                    break;
+                case "DWARF":
+                    break;
             }
         }
     }

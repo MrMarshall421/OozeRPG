@@ -7,6 +7,7 @@ package dev.mrmarshall.oozerpg;
 import dev.mrmarshall.oozerpg.data.LevelingData;
 import dev.mrmarshall.oozerpg.data.PlayerDataHandler;
 import dev.mrmarshall.oozerpg.races.RaceManager;
+import dev.mrmarshall.oozerpg.skills.elf.ElfMovementSkills;
 import dev.mrmarshall.oozerpg.skills.human.HumanCombatSkills;
 import dev.mrmarshall.oozerpg.skills.human.HumanMovementSkills;
 import dev.mrmarshall.oozerpg.util.ItemStackCreator;
@@ -26,6 +27,7 @@ public class OozeRPG extends JavaPlugin {
     private SchedulerManager schedulerManager;
     private HumanCombatSkills humanCombatSkills;
     private HumanMovementSkills humanMovementSkills;
+    private ElfMovementSkills elfMovementSkills;
 
     public static OozeRPG getInstance() {
         return instance;
@@ -43,6 +45,7 @@ public class OozeRPG extends JavaPlugin {
         schedulerManager = new SchedulerManager();
         humanCombatSkills = new HumanCombatSkills();
         humanMovementSkills = new HumanMovementSkills();
+        elfMovementSkills = new ElfMovementSkills();
 
         initHandler.initialize();
     }
@@ -63,19 +66,21 @@ public class OozeRPG extends JavaPlugin {
     public LevelingData getLevelingData() {
         return levelingData;
     }
-
     public MobManager getMobManager() {
         return mobManager;
     }
-
     public SchedulerManager getSchedulerManager() {
         return schedulerManager;
     }
-
     public HumanCombatSkills getHumanCombatSkills() {
         return humanCombatSkills;
     }
+
     public HumanMovementSkills getHumanMovementSkills() {
         return humanMovementSkills;
+    }
+
+    public ElfMovementSkills getElfMovementSkills() {
+        return elfMovementSkills;
     }
 }
