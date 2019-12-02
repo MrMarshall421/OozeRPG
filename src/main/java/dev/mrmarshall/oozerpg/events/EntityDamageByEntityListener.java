@@ -96,9 +96,45 @@ public class EntityDamageByEntityListener implements Listener {
                             break;
                         case "ELF":
                             if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Bow")) {
-
-
                                 damage = (e.getDamage() / 100.0) * 10.0;
+                            }
+
+                            double mystical1ElfSkillBuff = OozeRPG.getInstance().getElfMovementSkills().calculateMystical1(Integer.parseInt(playerFileCfg.getString("skills.movement.mystical1.level").substring(0, 1)));
+                            Random mystical1ElfRandom = new Random();
+                            int mystical1ElfRandomResult = 1 + mystical1ElfRandom.nextInt(100);
+                            if (mystical1ElfRandomResult <= mystical1ElfSkillBuff) {
+                                double behindEnemyX;
+                                double behindEnemyZ;
+                                float nang = e.getEntity().getLocation().getYaw() + 90;
+
+                                if (nang < 0) nang += 360;
+
+                                behindEnemyX = Math.cos(Math.toRadians(nang));
+                                behindEnemyZ = Math.sin(Math.toRadians(nang));
+
+                                Location newDamagerLoc = new Location(e.getEntity().getLocation().getWorld(), e.getEntity().getLocation().getX() - behindEnemyX,
+                                        e.getEntity().getLocation().getY(), e.getEntity().getLocation().getZ() - behindEnemyZ, e.getEntity().getLocation().getYaw(), e.getEntity().getLocation().getPitch());
+
+                                p.teleport(newDamagerLoc);
+                            } else {
+                                double mystical2SkillBuff = OozeRPG.getInstance().getElfMovementSkills().calculateMystical2(Integer.parseInt(playerFileCfg.getString("skills.movement.mystical2.level").substring(0, 1)));
+                                Random mystical2Random = new Random();
+                                int mystical2RandomResult = 1 + mystical2Random.nextInt(100);
+                                if (mystical2RandomResult <= mystical2SkillBuff) {
+                                    double behindEnemyX;
+                                    double behindEnemyZ;
+                                    float nang = e.getEntity().getLocation().getYaw() + 90;
+
+                                    if (nang < 0) nang += 360;
+
+                                    behindEnemyX = Math.cos(Math.toRadians(nang));
+                                    behindEnemyZ = Math.sin(Math.toRadians(nang));
+
+                                    Location newDamagerLoc = new Location(e.getEntity().getLocation().getWorld(), e.getEntity().getLocation().getX() - behindEnemyX,
+                                            e.getEntity().getLocation().getY(), e.getEntity().getLocation().getZ() - behindEnemyZ, e.getEntity().getLocation().getYaw(), e.getEntity().getLocation().getPitch());
+
+                                    p.teleport(newDamagerLoc);
+                                }
                             }
 
                             break;
@@ -180,9 +216,16 @@ public class EntityDamageByEntityListener implements Listener {
 
                             break;
                         case "ELF":
-                            if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Bow")) {
-
-
+                            Random dodge1Random = new Random();
+                            int dodge1RandomResult = 1 + dodge1Random.nextInt(100);
+                            double dodge1ElfSkillBuff = OozeRPG.getInstance().getElfMovementSkills().calculateDodge1(Integer.parseInt(playerFileCfg.getString("skills.movement.dodge1.level")));
+                            if (dodge1RandomResult <= dodge1ElfSkillBuff) {
+                                //> Dodge attack
+                                e.setCancelled(true);
+                                p.sendMessage(PluginMessage.prefix + "§d§oYou dodged the attack from " + e.getDamager().getName());
+                                if (e.getDamager() instanceof Player) {
+                                    p.sendMessage(PluginMessage.prefix + "§d§o" + p.getName() + " dodged your attack!");
+                                }
                             }
 
                             break;
