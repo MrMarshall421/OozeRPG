@@ -204,7 +204,7 @@ public class EntityDamageByEntityListener implements Listener {
                             if (p.getHealth() <= 8.0) {
                                 if (!OozeRPG.getInstance().getHumanMovementSkills().getMysticalCooldown().contains(p.getUniqueId())) {
                                     Random scamperRandom = new Random();
-                                    int scamperRandomResult = 1 + dodgeRandom.nextInt(100);
+                                    int scamperRandomResult = 1 + scamperRandom.nextInt(100);
                                     double scamper1SkillBuff = OozeRPG.getInstance().getHumanMovementSkills().calculateScamper1(Integer.parseInt(playerFileCfg.getString("skills.movement.scamper1.level")));
                                     if (scamperRandomResult <= scamper1SkillBuff) {
                                         //> Give speed 4 and start 25s cooldown
@@ -225,6 +225,19 @@ public class EntityDamageByEntityListener implements Listener {
                                 p.sendMessage(PluginMessage.prefix + "§d§oYou dodged the attack from " + e.getDamager().getName());
                                 if (e.getDamager() instanceof Player) {
                                     p.sendMessage(PluginMessage.prefix + "§d§o" + p.getName() + " dodged your attack!");
+                                }
+                            }
+
+                            if (p.getHealth() <= 8.0) {
+                                if (!OozeRPG.getInstance().getElfMovementSkills().getMysticalCooldown().contains(p.getUniqueId())) {
+                                    Random scamperRandom = new Random();
+                                    int scamperRandomResult = 1 + scamperRandom.nextInt(100);
+                                    double scamper1SkillBuff = OozeRPG.getInstance().getElfMovementSkills().calculateScamper1(Integer.parseInt(playerFileCfg.getString("skills.movement.scamper1.level")));
+                                    if (scamperRandomResult <= scamper1SkillBuff) {
+                                        //> Give speed 5 and start 25s cooldown
+                                        p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20 * 8, 5));
+                                        OozeRPG.getInstance().getSchedulerManager().mysticalCooldown(p.getUniqueId());
+                                    }
                                 }
                             }
 

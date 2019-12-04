@@ -5,6 +5,7 @@
 package dev.mrmarshall.oozerpg.skills.elf;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -75,6 +76,12 @@ public class ElfMovementSkills {
         int speed2Level = Integer.parseInt(playerFileCfg.getString("skills.movement.speed2.level").substring(0, 1));
         float speed2SkillBuff = (float) ((currentPlayerSpeed / 100.0F) * calculateSpeed2(speed2Level));
         p.setWalkSpeed(p.getWalkSpeed() + speed2SkillBuff);
+
+        if (p.getInventory().getItemInMainHand().getType() == Material.BOW) {
+            int bowspeedLevel = Integer.parseInt(playerFileCfg.getString("skills.movement.bowspeed.level").substring(0, 1));
+            float bowspeedSkillBuff = (float) ((currentPlayerSpeed / 100.0F) * calculateBowspeed(bowspeedLevel));
+            p.setWalkSpeed(p.getWalkSpeed() + bowspeedSkillBuff);
+        }
     }
 
     public List<UUID> getMysticalCooldown() {
