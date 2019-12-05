@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.Random;
 
@@ -216,6 +217,12 @@ public class EntityDamageByEntityListener implements Listener {
 
                             break;
                         case "ELF":
+                            LivingEntity damager = (LivingEntity) e.getDamager();
+
+                            double retaliate1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateRetaliate1(Integer.parseInt(playerFileCfg.getString("skills.utility.retaliate1.level").substring(0, 1)));
+                            double thornsDamage = (e.getDamage() / 100.0) * retaliate1SkillBuff;
+                            damager.damage(thornsDamage);
+
                             Random dodge1Random = new Random();
                             int dodge1RandomResult = 1 + dodge1Random.nextInt(100);
                             double dodge1ElfSkillBuff = OozeRPG.getInstance().getElfMovementSkills().calculateDodge1(Integer.parseInt(playerFileCfg.getString("skills.movement.dodge1.level")));
@@ -239,6 +246,52 @@ public class EntityDamageByEntityListener implements Listener {
                                         OozeRPG.getInstance().getSchedulerManager().mysticalCooldown(p.getUniqueId());
                                     }
                                 }
+                            }
+
+                            Random anger1Random = new Random();
+                            int anger1RandomResult = 1 + anger1Random.nextInt(100);
+                            double anger1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateAnger1(Integer.parseInt(playerFileCfg.getString("skills.utility.anger1.level")));
+                            if (anger1RandomResult <= anger1SkillBuff) {
+                                //> Set enemy on fire
+                                e.getDamager().setFireTicks(50);
+                            }
+
+                            Random hatred1Random = new Random();
+                            int hatred1RandomResult = 1 + hatred1Random.nextInt(100);
+                            double hatred1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred1(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred1.level")));
+                            if (hatred1RandomResult <= hatred1SkillBuff) {
+                                if (e.getDamager().getLocation().distance(p.getLocation()) >= 10) {
+                                    //> Knockback enemy
+                                    Vector knockback = e.getDamager().getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
+                                    e.getDamager().setVelocity(knockback.multiply(2));
+                                }
+                            } else {
+                                Random hatred2Random = new Random();
+                                int hatred2RandomResult = 1 + hatred2Random.nextInt(100);
+                                double hatred2SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred2(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred2.level")));
+                                if (hatred2RandomResult <= hatred2SkillBuff) {
+                                    if (e.getDamager().getLocation().distance(p.getLocation()) >= 10) {
+                                        //> Knockback enemy
+                                        Vector knockback = e.getDamager().getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
+                                        e.getDamager().setVelocity(knockback.multiply(2));
+                                    }
+                                }
+                            }
+
+                            Random poisoned1Random = new Random();
+                            int poisoned1RandomResult = 1 + poisoned1Random.nextInt(100);
+                            double poisoned1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculatePoisoned1(Integer.parseInt(playerFileCfg.getString("skills.utility.poisoned1.level")));
+                            if (poisoned1RandomResult <= poisoned1SkillBuff) {
+                                //> Set enemy on poison
+                                ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.POISON, 20 * 3, 1));
+                            }
+
+                            Random dreadShade1Random = new Random();
+                            int dreadShade1RandomResult = 1 + dreadShade1Random.nextInt(100);
+                            double dreadShade1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateDreadshade1(Integer.parseInt(playerFileCfg.getString("skills.utility.dreadShade.level")));
+                            if (dreadShade1RandomResult <= dreadShade1SkillBuff) {
+                                //> Set enemy on wither
+                                ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * 3, 1));
                             }
 
                             break;

@@ -27,4 +27,34 @@ public class SchedulerManager {
             }
         }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 25);
     }
+
+    public void hatredCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getElfUtilitySkills().getHatredCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 20);
+    }
+
+    public void sleightTimer(UUID uuid, double sleightSkillBuff) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (OozeRPG.getInstance().getElfUtilitySkills().getSleightTimer().contains(uuid)) {
+                    Player p = Bukkit.getPlayer(uuid);
+
+                    if ((p.getHealth() + sleightSkillBuff) <= p.getMaxHealth()) {
+                        if (!(p.getFireTicks() > 0) && !(p.hasPotionEffect(PotionEffectType.POISON) && !(p.hasPotionEffect(PotionEffectType.WITHER) && !(p.hasPotionEffect(PotionEffectType.BLINDNESS) && !(p.hasPotionEffect(PotionEffectType.CONFUSION)))))) {
+                            p.setHealth(p.getHealth() + sleightSkillBuff);
+                        }
+                    } else if (p.getHealth() < p.getMaxHealth()) {
+                        p.setHealth(p.getMaxHealth());
+                    }
+                } else {
+                    cancel();
+                }
+            }
+        }.runTaskTimerAsynchronously(OozeRPG.getInstance(), 20 * 2, 20 * 2);
+    }
 }

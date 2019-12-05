@@ -7,11 +7,13 @@ package dev.mrmarshall.oozerpg;
 import dev.mrmarshall.oozerpg.commands.RaceCMD;
 import dev.mrmarshall.oozerpg.commands.SkillsCMD;
 import dev.mrmarshall.oozerpg.events.EntityDamageByEntityListener;
+import dev.mrmarshall.oozerpg.events.EntityDamageListener;
 import dev.mrmarshall.oozerpg.events.PlayerJoinListener;
 import dev.mrmarshall.oozerpg.events.PlayerQuitListener;
 import dev.mrmarshall.oozerpg.gui.RaceSelectionGUI;
 import dev.mrmarshall.oozerpg.gui.SkillsGUI;
 import dev.mrmarshall.oozerpg.gui.elf.ElfMovementSkillsGUI;
+import dev.mrmarshall.oozerpg.gui.elf.ElfUtilitySkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanCombatSkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanMovementSkillsGUI;
 import dev.mrmarshall.oozerpg.levels.LevelingSystem;
@@ -30,6 +32,7 @@ public class InitializationHandler {
         Bukkit.getPluginManager().registerEvents(new LevelingSystem(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), OozeRPG.getInstance());
+        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), OozeRPG.getInstance());
 
         //> GUIs
         Bukkit.getPluginManager().registerEvents(new RaceSelectionGUI(), OozeRPG.getInstance());
@@ -37,6 +40,7 @@ public class InitializationHandler {
         Bukkit.getPluginManager().registerEvents(new HumanCombatSkillsGUI(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new HumanMovementSkillsGUI(), OozeRPG.getInstance());
         Bukkit.getPluginManager().registerEvents(new ElfMovementSkillsGUI(), OozeRPG.getInstance());
+        Bukkit.getPluginManager().registerEvents(new ElfUtilitySkillsGUI(), OozeRPG.getInstance());
     }
 
     private void registerCommands() {

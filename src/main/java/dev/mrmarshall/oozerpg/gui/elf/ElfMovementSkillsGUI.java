@@ -69,10 +69,10 @@ public class ElfMovementSkillsGUI implements Listener {
                         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Scamper §l1")) {
                             //> Scamper 1
                             buySkillUpgrade("skills.movement.scamper1.level", e.getCurrentItem(), e.getSlot(), p);
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Mystical §l2")) {
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eMystical §l2")) {
                             //> Mystical 2
                             buySkillUpgrade("skills.movement.mystical2.level", e.getCurrentItem(), e.getSlot(), p);
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§eSpeed §l2")) {
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§aSpeed §l2")) {
                             //> Speed 2
                             buySkillUpgrade("skills.movement.speed2.level", e.getCurrentItem(), e.getSlot(), p);
                         } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8Dodge §l2")) {
