@@ -37,6 +37,42 @@ public class SchedulerManager {
         }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 20);
     }
 
+    public void fierceAngerCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfUtilitySkills().getFierceAngerCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 8);
+    }
+
+    public void darkdepthsCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfUtilitySkills().getDarkdepthsCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 9);
+    }
+
+    public void beefyCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfUtilitySkills().getBeefyCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 30);
+    }
+
+    public void unbreakableCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfUtilitySkills().getUnbreakableCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 40);
+    }
+
     public void sleightTimer(UUID uuid, double sleightSkillBuff) {
         new BukkitRunnable() {
             @Override

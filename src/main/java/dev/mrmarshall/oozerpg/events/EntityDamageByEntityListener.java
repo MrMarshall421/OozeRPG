@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -141,8 +142,6 @@ public class EntityDamageByEntityListener implements Listener {
                             break;
                         case "DWARF":
                             if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Axe")) {
-
-
                                 damage = (e.getDamage() / 100.0) * 10.0;
                             }
 
@@ -256,24 +255,32 @@ public class EntityDamageByEntityListener implements Listener {
                                 e.getDamager().setFireTicks(50);
                             }
 
-                            Random hatred1Random = new Random();
-                            int hatred1RandomResult = 1 + hatred1Random.nextInt(100);
-                            double hatred1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred1(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred1.level")));
-                            if (hatred1RandomResult <= hatred1SkillBuff) {
-                                if (e.getDamager().getLocation().distance(p.getLocation()) >= 10) {
-                                    //> Knockback enemy
-                                    Vector knockback = e.getDamager().getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
-                                    e.getDamager().setVelocity(knockback.multiply(2));
-                                }
-                            } else {
-                                Random hatred2Random = new Random();
-                                int hatred2RandomResult = 1 + hatred2Random.nextInt(100);
-                                double hatred2SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred2(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred2.level")));
-                                if (hatred2RandomResult <= hatred2SkillBuff) {
+                            if (!OozeRPG.getInstance().getElfUtilitySkills().getHatredCooldown().contains(p.getUniqueId())) {
+                                Random hatred1Random = new Random();
+                                int hatred1RandomResult = 1 + hatred1Random.nextInt(100);
+                                double hatred1SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred1(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred1.level")));
+                                if (hatred1RandomResult <= hatred1SkillBuff) {
                                     if (e.getDamager().getLocation().distance(p.getLocation()) >= 10) {
                                         //> Knockback enemy
                                         Vector knockback = e.getDamager().getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
                                         e.getDamager().setVelocity(knockback.multiply(2));
+
+                                        OozeRPG.getInstance().getElfUtilitySkills().getHatredCooldown().add(p.getUniqueId());
+                                        OozeRPG.getInstance().getSchedulerManager().hatredCooldown(p.getUniqueId());
+                                    }
+                                } else {
+                                    Random hatred2Random = new Random();
+                                    int hatred2RandomResult = 1 + hatred2Random.nextInt(100);
+                                    double hatred2SkillBuff = OozeRPG.getInstance().getElfUtilitySkills().calculateHatred2(Integer.parseInt(playerFileCfg.getString("skills.utility.hatred2.level")));
+                                    if (hatred2RandomResult <= hatred2SkillBuff) {
+                                        if (e.getDamager().getLocation().distance(p.getLocation()) >= 10) {
+                                            //> Knockback enemy
+                                            Vector knockback = e.getDamager().getLocation().toVector().subtract(p.getLocation().toVector()).normalize();
+                                            e.getDamager().setVelocity(knockback.multiply(2));
+
+                                            OozeRPG.getInstance().getElfUtilitySkills().getHatredCooldown().add(p.getUniqueId());
+                                            OozeRPG.getInstance().getSchedulerManager().hatredCooldown(p.getUniqueId());
+                                        }
                                     }
                                 }
                             }
@@ -296,9 +303,113 @@ public class EntityDamageByEntityListener implements Listener {
 
                             break;
                         case "DWARF":
-                            if (p.getInventory().getItemInMainHand().getItemMeta().getDisplayName().contains("Axe")) {
+                            if (!OozeRPG.getInstance().getDwarfUtilitySkills().getFierceAngerCooldown().contains(p.getUniqueId())) {
+                                Random fierceAnger2Random = new Random();
+                                int fierceAnger2RandomResult = 1 + fierceAnger2Random.nextInt(100);
+                                double fierceAnger2SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateFierceAnger2(Integer.parseInt(playerFileCfg.getString("skills.utility.fierceanger2.level")));
+                                if (fierceAnger2RandomResult <= fierceAnger2SkillBuff) {
+                                    //> Set enemy on fire for 3,5 seconds
+                                    e.getDamager().setFireTicks(70);
 
+                                    OozeRPG.getInstance().getDwarfUtilitySkills().getFierceAngerCooldown().add(p.getUniqueId());
+                                    OozeRPG.getInstance().getSchedulerManager().fierceAngerCooldown(p.getUniqueId());
+                                } else if (fierceAnger2SkillBuff != 0) {
+                                    Random fierceAnger1Random = new Random();
+                                    int fierceAnger1RandomResult = 1 + fierceAnger1Random.nextInt(100);
+                                    double fierceAnger1SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateFierceAnger1(Integer.parseInt(playerFileCfg.getString("skills.utility.fierceanger1.level")));
+                                    if (fierceAnger1RandomResult <= fierceAnger1SkillBuff) {
+                                        //> Set enemy on fire for 3,5 seconds
+                                        e.getDamager().setFireTicks(70);
 
+                                        OozeRPG.getInstance().getDwarfUtilitySkills().getFierceAngerCooldown().add(p.getUniqueId());
+                                        OozeRPG.getInstance().getSchedulerManager().fierceAngerCooldown(p.getUniqueId());
+                                    }
+                                } else {
+                                    Random fierceAnger1Random = new Random();
+                                    int fierceAnger1RandomResult = 1 + fierceAnger1Random.nextInt(100);
+                                    double fierceAnger1SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateFierceAnger1(Integer.parseInt(playerFileCfg.getString("skills.utility.fierceanger1.level")));
+                                    if (fierceAnger1RandomResult <= fierceAnger1SkillBuff) {
+                                        //> Set enemy on fire for 2 seconds
+                                        e.getDamager().setFireTicks(40);
+
+                                        OozeRPG.getInstance().getDwarfUtilitySkills().getFierceAngerCooldown().add(p.getUniqueId());
+                                        OozeRPG.getInstance().getSchedulerManager().fierceAngerCooldown(p.getUniqueId());
+                                    }
+                                }
+                            }
+
+                            double magicAuraSkillBuff = 0.0;
+                            magicAuraSkillBuff += OozeRPG.getInstance().getDwarfUtilitySkills().calculateMagicAura1(Integer.parseInt(playerFileCfg.getString("skills.utility.magicaura1.level")));
+                            magicAuraSkillBuff += OozeRPG.getInstance().getDwarfUtilitySkills().calculateMagicAura2(Integer.parseInt(playerFileCfg.getString("skills.utility.magicaura2.level")));
+                            ((LivingEntity) e.getDamager()).damage((e.getDamage() / 100) * magicAuraSkillBuff);
+
+                            Random cursedArmor1Random = new Random();
+                            int cursedArmor1RandomResult = 1 + cursedArmor1Random.nextInt(100);
+                            double cursedArmor1SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateCursedArmor1(Integer.parseInt(playerFileCfg.getString("skills.utility.cursedarmor1.level")));
+                            if (cursedArmor1RandomResult <= cursedArmor1SkillBuff) {
+                                //> Set enemy on wither for 2 seconds
+                                ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 50, 1));
+                            }
+
+                            if (!OozeRPG.getInstance().getDwarfUtilitySkills().getDarkdepthsCooldown().contains(p.getUniqueId())) {
+                                Random darkdepths1Random = new Random();
+                                int darkdepths1RandomResult = 1 + darkdepths1Random.nextInt(100);
+                                double darkdepths1SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateDarkDepths1(Integer.parseInt(playerFileCfg.getString("skills.utility.darkdepths1.level")));
+                                if (darkdepths1RandomResult <= darkdepths1SkillBuff) {
+                                    //> Set enemy blind for 4 seconds
+                                    ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 4, 2));
+
+                                    OozeRPG.getInstance().getDwarfUtilitySkills().getDarkdepthsCooldown().add(p.getUniqueId());
+                                    OozeRPG.getInstance().getSchedulerManager().darkdepthsCooldown(p.getUniqueId());
+                                } else if (darkdepths1SkillBuff != 0) {
+                                    Random darkdepths1bRandom = new Random();
+                                    int darkdepths1bRandomResult = 1 + darkdepths1bRandom.nextInt(100);
+                                    double darkdepths1bSkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateDarkDepths1b(Integer.parseInt(playerFileCfg.getString("skills.utility.darkdepths1.level")));
+                                    if (darkdepths1bRandomResult <= darkdepths1bSkillBuff) {
+                                        //> Freeze enemy for 3 seconds
+                                        ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20 * 3, 10));
+                                        ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 3, 250));
+
+                                        OozeRPG.getInstance().getDwarfUtilitySkills().getDarkdepthsCooldown().add(p.getUniqueId());
+                                        OozeRPG.getInstance().getSchedulerManager().darkdepthsCooldown(p.getUniqueId());
+                                    }
+                                }
+                            }
+
+                            if (!OozeRPG.getInstance().getDwarfUtilitySkills().getBeefyCooldown().contains(p.getUniqueId())) {
+                                if (p.getHealth() < 12.0) {
+                                    Random beefy1Random = new Random();
+                                    int beefy1RandomResult = 1 + beefy1Random.nextInt(100);
+                                    double beefy1SkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateBeefy1(Integer.parseInt(playerFileCfg.getString("skills.utility.beefy1.level")));
+                                    if (beefy1RandomResult <= beefy1SkillBuff) {
+                                        //> Give Player 6 Absorption Hearts
+                                        ((LivingEntity) e.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20 * 15, 3));
+
+                                        new BukkitRunnable() {
+                                            @Override
+                                            public void run() {
+                                                OozeRPG.getInstance().getDwarfUtilitySkills().getBeefyCooldown().add(p.getUniqueId());
+                                                OozeRPG.getInstance().getSchedulerManager().beefyCooldown(p.getUniqueId());
+                                            }
+                                        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 15);
+                                    }
+                                }
+                            }
+
+                            if (!OozeRPG.getInstance().getDwarfUtilitySkills().getUnbreakableCooldown().contains(p.getUniqueId())) {
+                                if (p.getHealth() < 8.0) {
+                                    Random unbreakableRandom = new Random();
+                                    int unbreakableRandomResult = 1 + unbreakableRandom.nextInt(100);
+                                    double unbreakableSkillBuff = OozeRPG.getInstance().getDwarfUtilitySkills().calculateUnbreakable(Integer.parseInt(playerFileCfg.getString("skills.utility.unbreakable.level")));
+                                    if (unbreakableRandomResult <= unbreakableSkillBuff) {
+                                        //> Give Player resistance 5 and weakness 5
+                                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20 * 6, 5));
+                                        p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20 * 6, 5));
+
+                                        OozeRPG.getInstance().getDwarfUtilitySkills().getUnbreakableCooldown().add(p.getUniqueId());
+                                        OozeRPG.getInstance().getSchedulerManager().unbreakableCooldown(p.getUniqueId());
+                                    }
+                                }
                             }
 
                             break;

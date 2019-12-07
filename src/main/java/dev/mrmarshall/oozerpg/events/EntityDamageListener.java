@@ -22,9 +22,10 @@ public class EntityDamageListener implements Listener {
             Player p = (Player) e.getEntity();
             File playerFile = OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(p.getUniqueId());
             FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
+            String playerRace = playerFileCfg.getString("race");
 
             if (e.getCause() == EntityDamageEvent.DamageCause.POISON) {
-                if (playerFileCfg.getString("race").equals("ELF")) {
+                if (playerRace.equals("ELF")) {
                     int antibodySkillBuff = Integer.parseInt(playerFileCfg.getString("skills.utility.poisoned1.level"));
 
                     if (antibodySkillBuff != 0) {
@@ -32,10 +33,18 @@ public class EntityDamageListener implements Listener {
                     }
                 }
             } else if (e.getCause() == EntityDamageEvent.DamageCause.WITHER) {
-                if (playerFileCfg.getString("race").equals("ELF")) {
+                if (playerRace.equals("ELF") || playerRace.equals("DWARF")) {
                     int dreadsdemiseSkillBuff = Integer.parseInt(playerFileCfg.getString("skills.utility.dreadsdemise.level"));
 
                     if (dreadsdemiseSkillBuff != 0) {
+                        e.setCancelled(true);
+                    }
+                }
+            } else if (e.getCause() == EntityDamageEvent.DamageCause.FIRE || e.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
+                if (playerRace.equals("DWARF")) {
+                    int firedHandsSkillBuff = Integer.parseInt(playerFileCfg.getString("skills.utility.firedhands.level"));
+
+                    if (firedHandsSkillBuff != 0) {
                         e.setCancelled(true);
                     }
                 }

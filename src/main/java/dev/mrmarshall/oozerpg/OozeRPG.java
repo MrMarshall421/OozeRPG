@@ -7,6 +7,7 @@ package dev.mrmarshall.oozerpg;
 import dev.mrmarshall.oozerpg.data.LevelingData;
 import dev.mrmarshall.oozerpg.data.PlayerDataHandler;
 import dev.mrmarshall.oozerpg.races.RaceManager;
+import dev.mrmarshall.oozerpg.skills.dwarf.DwarfCombatSkills;
 import dev.mrmarshall.oozerpg.skills.dwarf.DwarfUtilitySkills;
 import dev.mrmarshall.oozerpg.skills.elf.ElfMovementSkills;
 import dev.mrmarshall.oozerpg.skills.elf.ElfUtilitySkills;
@@ -32,6 +33,7 @@ public class OozeRPG extends JavaPlugin {
     private ElfMovementSkills elfMovementSkills;
     private ElfUtilitySkills elfUtilitySkills;
     private DwarfUtilitySkills dwarfUtilitySkills;
+    private DwarfCombatSkills dwarfCombatSkills;
 
     public static OozeRPG getInstance() {
         return instance;
@@ -52,6 +54,7 @@ public class OozeRPG extends JavaPlugin {
         elfMovementSkills = new ElfMovementSkills();
         elfUtilitySkills = new ElfUtilitySkills();
         dwarfUtilitySkills = new DwarfUtilitySkills();
+        dwarfCombatSkills = new DwarfCombatSkills();
 
         initHandler.initialize();
     }
@@ -95,5 +98,9 @@ public class OozeRPG extends JavaPlugin {
 
     public DwarfUtilitySkills getDwarfUtilitySkills() {
         return dwarfUtilitySkills;
+    }
+
+    public DwarfCombatSkills getDwarfCombatSkills() {
+        return dwarfCombatSkills;
     }
 }

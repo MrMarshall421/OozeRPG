@@ -137,7 +137,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
                 OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(p.getUniqueId(), skillpoints - 1);
 
                 refreshInventory(p.getOpenInventory().getTopInventory(), p);
-                OozeRPG.getInstance().getElfMovementSkills().setPlayerWalkingSpeed(p);
+                OozeRPG.getInstance().getDwarfUtilitySkills().updateMaxHealth(p.getUniqueId());
 
                 p.sendMessage(PluginMessage.prefix + "§aSkill Successfully upgraded!");
             } else {
@@ -263,8 +263,8 @@ public class DwarfUtilitySkillsGUI implements Listener {
         playerInfoMeta.setOwningPlayer(Bukkit.getOfflinePlayer(p.getUniqueId()));
         playerInfo.setItemMeta(playerInfoMeta);
         List<String> playerInfoLore = new ArrayList<>();
-        playerInfoLore.add("§9§oCurrent race: §b§lELF");
-        playerInfoLore.add("§9§oGains +10% Bow Damage");
+        playerInfoLore.add("§9§oCurrent race: §b§lDWARF");
+        playerInfoLore.add("§9§oGains +10% Axe Damage");
         playerInfoLore.add(" ");
         playerInfoLore.add("§9§oSkillpoints left: §l" + playerFileCfg.getInt("skillpoints"));
         OozeRPG.getInstance().getItemStackCreator().addLore(playerInfo, playerInfoLore);
