@@ -5,7 +5,10 @@
 package dev.mrmarshall.oozerpg.gui;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
+import dev.mrmarshall.oozerpg.gui.dwarf.DwarfCombatSkillsGUI;
+import dev.mrmarshall.oozerpg.gui.dwarf.DwarfUtilitySkillsGUI;
 import dev.mrmarshall.oozerpg.gui.elf.ElfMovementSkillsGUI;
+import dev.mrmarshall.oozerpg.gui.elf.ElfUtilitySkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanCombatSkillsGUI;
 import dev.mrmarshall.oozerpg.gui.human.HumanMovementSkillsGUI;
 import org.bukkit.Bukkit;
@@ -126,16 +129,33 @@ public class SkillsGUI implements Listener {
                     break;
                 case "ELF":
                     ElfMovementSkillsGUI elfMovementSkillsGUI = new ElfMovementSkillsGUI();
+                    ElfUtilitySkillsGUI elfUtilitySkillsGUI = new ElfUtilitySkillsGUI();
 
                     try {
                         if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
                             p.closeInventory();
                             elfMovementSkillsGUI.open(p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§6Utility")) {
+                            p.closeInventory();
+                            elfUtilitySkillsGUI.open(p);
                         }
                     } catch (NullPointerException ex) {
                     }
                     break;
                 case "DWARF":
+                    DwarfUtilitySkillsGUI dwarfUtilitySkillsGUI = new DwarfUtilitySkillsGUI();
+                    DwarfCombatSkillsGUI dwarfCombatSkillsGUI = new DwarfCombatSkillsGUI();
+
+                    try {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§6Utility")) {
+                            p.closeInventory();
+                            dwarfUtilitySkillsGUI.open(p);
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
+                            p.closeInventory();
+                            dwarfCombatSkillsGUI.open(p);
+                        }
+                    } catch (NullPointerException ex) {
+                    }
                     break;
             }
         }
