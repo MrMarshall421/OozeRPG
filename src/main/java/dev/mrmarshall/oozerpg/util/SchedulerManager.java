@@ -73,6 +73,24 @@ public class SchedulerManager {
         }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 40);
     }
 
+    public void thickskinCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfCombatSkills().getThickskinCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 2);
+    }
+
+    public void welltaughtCooldown(UUID uuid) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                OozeRPG.getInstance().getDwarfCombatSkills().getWelltaughtCooldown().remove(uuid);
+            }
+        }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20 * 10);
+    }
+
     public void sleightTimer(UUID uuid, double sleightSkillBuff) {
         new BukkitRunnable() {
             @Override

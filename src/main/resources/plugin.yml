@@ -3,6 +3,7 @@ version: 0.0.1
 api-version: 1.13
 author: MrMarshall
 website: https://mrmarshall.dev/
+depends: [Vault]
 main: dev.mrmarshall.oozerpg.OozeRPG
 
 commands:

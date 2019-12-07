@@ -16,6 +16,8 @@ import dev.mrmarshall.oozerpg.skills.human.HumanMovementSkills;
 import dev.mrmarshall.oozerpg.util.ItemStackCreator;
 import dev.mrmarshall.oozerpg.util.MobManager;
 import dev.mrmarshall.oozerpg.util.SchedulerManager;
+import net.milkbowl.vault.permission.Permission;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class OozeRPG extends JavaPlugin {
@@ -34,6 +36,7 @@ public class OozeRPG extends JavaPlugin {
     private ElfUtilitySkills elfUtilitySkills;
     private DwarfUtilitySkills dwarfUtilitySkills;
     private DwarfCombatSkills dwarfCombatSkills;
+    private Permission permissionManager;
 
     public static OozeRPG getInstance() {
         return instance;
@@ -55,7 +58,9 @@ public class OozeRPG extends JavaPlugin {
         elfUtilitySkills = new ElfUtilitySkills();
         dwarfUtilitySkills = new DwarfUtilitySkills();
         dwarfCombatSkills = new DwarfCombatSkills();
+        permissionManager = null;
 
+        setupPermissions();
         initHandler.initialize();
     }
 
@@ -63,12 +68,21 @@ public class OozeRPG extends JavaPlugin {
     public void onDisable() {
         instance = null;
     }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        permissionManager = rsp.getProvider();
+        return permissionManager != null;
+    }
+
     public ItemStackCreator getItemStackCreator() {
         return itemStackCreator;
     }
+
     public PlayerDataHandler getPlayerDataHandler() {
         return playerDataHandler;
     }
+
     public RaceManager getRaceManager() {
         return raceManager;
     }
@@ -87,20 +101,21 @@ public class OozeRPG extends JavaPlugin {
     public HumanMovementSkills getHumanMovementSkills() {
         return humanMovementSkills;
     }
-
     public ElfMovementSkills getElfMovementSkills() {
         return elfMovementSkills;
     }
-
     public ElfUtilitySkills getElfUtilitySkills() {
         return elfUtilitySkills;
     }
-
     public DwarfUtilitySkills getDwarfUtilitySkills() {
         return dwarfUtilitySkills;
     }
 
     public DwarfCombatSkills getDwarfCombatSkills() {
         return dwarfCombatSkills;
+    }
+
+    public Permission getPermissionManager() {
+        return permissionManager;
     }
 }

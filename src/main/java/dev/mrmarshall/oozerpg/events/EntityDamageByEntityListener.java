@@ -145,6 +145,9 @@ public class EntityDamageByEntityListener implements Listener {
                                 damage = (e.getDamage() / 100.0) * 10.0;
                             }
 
+                            double damage1DwarfSkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateDamage1(Integer.parseInt(playerFileCfg.getString("skills.combat.damage1.level").substring(0, 1)));
+                            damage = damage + (e.getDamage() / 100.0) * damage1DwarfSkillBuff;
+
                             break;
                         default:
                             break;
@@ -411,6 +414,45 @@ public class EntityDamageByEntityListener implements Listener {
                                     }
                                 }
                             }
+
+                            double tank1DwarfSkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateTank1(Integer.parseInt(playerFileCfg.getString("skills.combat.tank1.level").substring(0, 1)));
+                            damage = damage - (e.getDamage() / 100.0) * tank1DwarfSkillBuff;
+
+                            if (!OozeRPG.getInstance().getDwarfCombatSkills().getThickskinCooldown().contains(p.getUniqueId())) {
+                                Random thickskin1Random = new Random();
+                                int thickskin1RandomResult = 1 + thickskin1Random.nextInt(100);
+                                double thickskin1SkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateThickSkin1(Integer.parseInt(playerFileCfg.getString("skills.utility.thickskin1.level")));
+                                if (thickskin1RandomResult <= thickskin1SkillBuff) {
+                                    //> Heal player 2 hearts
+                                    p.setHealth(p.getHealth() + 2.0);
+                                    new BukkitRunnable() {
+                                        @Override
+                                        public void run() {
+                                            p.setHealth(p.getHealth() + 2.0);
+
+                                            OozeRPG.getInstance().getDwarfCombatSkills().getThickskinCooldown().add(p.getUniqueId());
+                                            OozeRPG.getInstance().getSchedulerManager().thickskinCooldown(p.getUniqueId());
+                                        }
+                                    }.runTaskLaterAsynchronously(OozeRPG.getInstance(), 20);
+                                }
+                            }
+
+                            double tank2DwarfSkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateTank2(Integer.parseInt(playerFileCfg.getString("skills.combat.tank2.level").substring(0, 1)));
+                            damage = damage - (e.getDamage() / 100.0) * tank2DwarfSkillBuff;
+
+                            if (!OozeRPG.getInstance().getDwarfCombatSkills().getWelltaughtCooldown().contains(p.getUniqueId())) {
+                                Random welltaughtRandom = new Random();
+                                int welltaughtRandomResult = 1 + welltaughtRandom.nextInt(100);
+                                double welltaughtSkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateWelltaught(Integer.parseInt(playerFileCfg.getString("skills.utility.welltaught.level")));
+                                if (welltaughtRandomResult <= welltaughtSkillBuff) {
+                                    //> Light victim on fire for 3 seconds and heal player
+                                    e.getDamager().setFireTicks(60);
+                                    p.setHealth(p.getHealth() + (welltaughtSkillBuff / 2));
+                                }
+                            }
+
+                            double furious1SkillBuff = OozeRPG.getInstance().getDwarfCombatSkills().calculateFurious1(Integer.parseInt(playerFileCfg.getString("skills.combat.furious1.level").substring(0, 1)));
+                            damage = damage - (e.getDamage() / 100.0) * furious1SkillBuff;
 
                             break;
                         default:

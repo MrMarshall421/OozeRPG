@@ -6,6 +6,7 @@ package dev.mrmarshall.oozerpg.levels;
 
 import dev.mrmarshall.oozerpg.OozeRPG;
 import dev.mrmarshall.oozerpg.util.PluginMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -56,9 +57,28 @@ public class LevelingSystem implements Listener {
     public void levelUp(UUID uuid) {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
+        Player p = Bukkit.getPlayer(uuid);
 
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerSkillpoints(uuid, playerFileCfg.getInt("skillpoints") + 1);
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerLevel(uuid, playerFileCfg.getInt("level") + 1);
         OozeRPG.getInstance().getPlayerDataHandler().setPlayerExperience(uuid, playerFileCfg.getInt("experience") - levelsCfg.getInt(playerFileCfg.getInt("level") + ""));
+
+        //> Give player armor permissions
+        switch (playerFileCfg.getInt("level")) {
+            case 10:
+                OozeRPG.getInstance().getPermissionManager().playerAdd(p, "weaponkit.tier2");
+                break;
+            case 20:
+                OozeRPG.getInstance().getPermissionManager().playerAdd(p, "weaponkit.tier3");
+                break;
+            case 30:
+                OozeRPG.getInstance().getPermissionManager().playerAdd(p, "weaponkit.tier4");
+                break;
+            case 40:
+                OozeRPG.getInstance().getPermissionManager().playerAdd(p, "weaponkit.tier5");
+                break;
+            default:
+                break;
+        }
     }
 }
