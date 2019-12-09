@@ -126,8 +126,8 @@ public class DwarfCombatSkillsGUI implements Listener {
 
             if (p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getType() != Material.ORANGE_STAINED_GLASS_PANE) {
                 previousItem = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getItem(previousItemSlot).getItemMeta().getDisplayName()).replaceAll(" ", "").toLowerCase();
-                previousItemLevel = Integer.parseInt(playerFileCfg.getString("skills.movement." + previousItem + ".level").substring(0, 1));
-                previousItemMaxLevel = Integer.parseInt(playerFileCfg.getString("skills.movement." + previousItem + ".level").substring(2, 3));
+                previousItemLevel = Integer.parseInt(playerFileCfg.getString("skills.utility." + previousItem + ".level").substring(0, 1));
+                previousItemMaxLevel = Integer.parseInt(playerFileCfg.getString("skills.utility." + previousItem + ".level").substring(2, 3));
             }
 
             if (previousItemLevel == previousItemMaxLevel) {

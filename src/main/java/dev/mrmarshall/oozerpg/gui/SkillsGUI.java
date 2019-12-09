@@ -155,6 +155,7 @@ public class SkillsGUI implements Listener {
                             dwarfCombatSkillsGUI.open(p);
                         }
                     } catch (NullPointerException ex) {
+                        ex.printStackTrace();
                     }
                     break;
             }

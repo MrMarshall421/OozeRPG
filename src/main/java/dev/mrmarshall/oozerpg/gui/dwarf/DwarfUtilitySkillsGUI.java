@@ -154,7 +154,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         //> Items
         ItemStack placeholder = OozeRPG.getInstance().getItemStackCreator().create(Material.ORANGE_STAINED_GLASS_PANE, 1, " ", true);
 
-        String growingSkin1Level = playerFileCfg.getString("skills.utility.growingSkin1.level");
+        String growingSkin1Level = playerFileCfg.getString("skills.utility.growingskin1.level");
         double growingSkin1Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateGrowingSkin1(Integer.parseInt(growingSkin1Level.substring(0, 1)));
         ItemStack growingSkin1 = OozeRPG.getInstance().getItemStackCreator().create(Material.ROSE_RED, 1, "§4Growing Skin §l1", false);
         List<String> growingSkin1Lore = new ArrayList<>();
@@ -162,7 +162,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         growingSkin1Lore.add("§9§oGains " + growingSkin1Percentage / 2 + " additional Hearts");
         OozeRPG.getInstance().getItemStackCreator().addLore(growingSkin1, growingSkin1Lore);
 
-        String fierceAnger1Level = playerFileCfg.getString("skills.utility.fierceAnger1.level");
+        String fierceAnger1Level = playerFileCfg.getString("skills.utility.fierceanger1.level");
         double fierceAnger1Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateFierceAnger1(Integer.parseInt(fierceAnger1Level.substring(0, 1)));
         ItemStack fierceAnger1 = OozeRPG.getInstance().getItemStackCreator().create(Material.CACTUS_GREEN, 1, "§2Fierce Anger §l1", false);
         List<String> fierceAnger1Lore = new ArrayList<>();
@@ -170,14 +170,14 @@ public class DwarfUtilitySkillsGUI implements Listener {
         fierceAnger1Lore.add("§9§oGains " + fierceAnger1Percentage + "% Chance to catch attacker on fire");
         OozeRPG.getInstance().getItemStackCreator().addLore(fierceAnger1, fierceAnger1Lore);
 
-        String firedHandsLevel = playerFileCfg.getString("skills.utility.firedHands.level");
+        String firedHandsLevel = playerFileCfg.getString("skills.utility.firedhands.level");
         ItemStack firedHands = OozeRPG.getInstance().getItemStackCreator().create(Material.LAPIS_LAZULI, 1, "§1Fired Hands", false);
         List<String> firedHandsLore = new ArrayList<>();
         firedHandsLore.add("§9§o" + firedHandsLevel + " Levels unlocked");
         firedHandsLore.add("§9§oGains fire immunity");
         OozeRPG.getInstance().getItemStackCreator().addLore(firedHands, firedHandsLore);
 
-        String magicAura1Level = playerFileCfg.getString("skills.utility.magicAura1.level");
+        String magicAura1Level = playerFileCfg.getString("skills.utility.magicaura1.level");
         double magicAura1Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateMagicAura1(Integer.parseInt(magicAura1Level.substring(0, 1)));
         ItemStack magicAura1 = OozeRPG.getInstance().getItemStackCreator().create(Material.MAGENTA_DYE, 1, "§5Magic Aura §l1", false);
         List<String> magicAura1Lore = new ArrayList<>();
@@ -185,7 +185,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         magicAura1Lore.add("§9§oGains " + magicAura1Percentage + "% Passive Thorns");
         OozeRPG.getInstance().getItemStackCreator().addLore(magicAura1, magicAura1Lore);
 
-        String growingSkin2Level = playerFileCfg.getString("skills.utility.growingSkin2.level");
+        String growingSkin2Level = playerFileCfg.getString("skills.utility.growingskin2.level");
         double growingSkin2Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateGrowingSkin2(Integer.parseInt(growingSkin2Level.substring(0, 1)));
         ItemStack growingSkin2 = OozeRPG.getInstance().getItemStackCreator().create(Material.CYAN_DYE, 1, "§3Growing Skin §l2", false);
         List<String> growingSkin2Lore = new ArrayList<>();
@@ -193,7 +193,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         growingSkin2Lore.add("§9§oGains " + growingSkin2Percentage / 2 + " additional Hearts");
         OozeRPG.getInstance().getItemStackCreator().addLore(growingSkin2, growingSkin2Lore);
 
-        String cursedArmor1Level = playerFileCfg.getString("skills.utility.cursedArmor1.level");
+        String cursedArmor1Level = playerFileCfg.getString("skills.utility.cursedarmor1.level");
         double cursedArmor1Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateCursedArmor1(Integer.parseInt(cursedArmor1Level.substring(0, 1)));
         ItemStack cursedArmor1 = OozeRPG.getInstance().getItemStackCreator().create(Material.DANDELION_YELLOW, 1, "§eCursed Armor §l1", false);
         List<String> cursedArmor1Lore = new ArrayList<>();
@@ -201,7 +201,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         cursedArmor1Lore.add("§9§oGains " + cursedArmor1Percentage / 2 + " additional Hearts");
         OozeRPG.getInstance().getItemStackCreator().addLore(cursedArmor1, cursedArmor1Lore);
 
-        String fierceAnger2Level = playerFileCfg.getString("skills.utility.fierceAnger2.level");
+        String fierceAnger2Level = playerFileCfg.getString("skills.utility.fierceanger2.level");
         double fierceAnger2Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateFierceAnger2(Integer.parseInt(fierceAnger2Level.substring(0, 1)));
         ItemStack fierceAnger2 = OozeRPG.getInstance().getItemStackCreator().create(Material.LIME_DYE, 1, "§aFierce Anger §l2", false);
         List<String> fierceAnger2Lore = new ArrayList<>();
@@ -209,7 +209,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         fierceAnger2Lore.add("§9§oGains " + fierceAnger2Percentage + "% Chance to catch attacker on fire");
         OozeRPG.getInstance().getItemStackCreator().addLore(fierceAnger2, fierceAnger2Lore);
 
-        String growingSkin3Level = playerFileCfg.getString("skills.utility.growingSkin3.level");
+        String growingSkin3Level = playerFileCfg.getString("skills.utility.growingskin3.level");
         double growingSkin3Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateGrowingSkin3(Integer.parseInt(growingSkin3Level.substring(0, 1)));
         ItemStack growingSkin3 = OozeRPG.getInstance().getItemStackCreator().create(Material.GRAY_DYE, 1, "§8Growing Skin §l3", false);
         List<String> growingSkin3Lore = new ArrayList<>();
@@ -217,7 +217,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         growingSkin3Lore.add("§9§oGains " + growingSkin3Percentage / 2 + " additional Hearts");
         OozeRPG.getInstance().getItemStackCreator().addLore(growingSkin3, growingSkin3Lore);
 
-        String darkDepths1Level = playerFileCfg.getString("skills.utility.darkDepths1.level");
+        String darkDepths1Level = playerFileCfg.getString("skills.utility.darkdepths1.level");
         double darkDepths1Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateDarkDepths1(Integer.parseInt(darkDepths1Level.substring(0, 1)));
         double darkDepths1Percentage2 = OozeRPG.getInstance().getDwarfUtilitySkills().calculateDarkDepths1b(Integer.parseInt(darkDepths1Level.substring(0, 1)));
         ItemStack darkDepths1 = OozeRPG.getInstance().getItemStackCreator().create(Material.LIGHT_BLUE_DYE, 1, "§bDark Depths §l1", false);
@@ -242,7 +242,7 @@ public class DwarfUtilitySkillsGUI implements Listener {
         beefy1Lore.add("§9§oGains " + beefy1Percentage + "% Chance to get 6 absorption hearts");
         OozeRPG.getInstance().getItemStackCreator().addLore(beefy1, beefy1Lore);
 
-        String magicAura2Level = playerFileCfg.getString("skills.utility.magicAura2.level");
+        String magicAura2Level = playerFileCfg.getString("skills.utility.magicaura2.level");
         double magicAura2Percentage = OozeRPG.getInstance().getDwarfUtilitySkills().calculateMagicAura2(Integer.parseInt(magicAura2Level.substring(0, 1)));
         ItemStack magicAura2 = OozeRPG.getInstance().getItemStackCreator().create(Material.SUGAR, 1, "§fMagic Aura §l2", false);
         List<String> magicAura2Lore = new ArrayList<>();
