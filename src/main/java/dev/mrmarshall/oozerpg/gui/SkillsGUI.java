@@ -117,46 +117,78 @@ public class SkillsGUI implements Listener {
                     HumanMovementSkillsGUI humanMovementSkillsGUI = new HumanMovementSkillsGUI();
 
                     try {
-                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
-                            p.closeInventory();
-                            humanCombatSkillsGUI.open(p);
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
-                            p.closeInventory();
-                            humanMovementSkillsGUI.open(p);
+                        switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
+                            case "§cCombat":
+                                p.closeInventory();
+                                humanCombatSkillsGUI.open(p);
+
+                                break;
+                            case "§3Movement":
+                                p.closeInventory();
+                                humanMovementSkillsGUI.open(p);
+
+                                break;
+                            case "§f§lRebirth":
+                                p.closeInventory();
+                                OozeRPG.getInstance().getRebirthsHandler().rebirth(p, "HUMAN");
+
+                                break;
+                            default:
+                                break;
                         }
                     } catch (NullPointerException ex) {
                     }
+
                     break;
                 case "ELF":
                     ElfMovementSkillsGUI elfMovementSkillsGUI = new ElfMovementSkillsGUI();
                     ElfUtilitySkillsGUI elfUtilitySkillsGUI = new ElfUtilitySkillsGUI();
 
-                    try {
-                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§3Movement")) {
+                    switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
+                        case "§3Movement":
                             p.closeInventory();
                             elfMovementSkillsGUI.open(p);
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§6Utility")) {
+
+                            break;
+                        case "§6Utility":
                             p.closeInventory();
                             elfUtilitySkillsGUI.open(p);
-                        }
-                    } catch (NullPointerException ex) {
+
+                            break;
+                        case "§f§lRebirth":
+                            p.closeInventory();
+                            OozeRPG.getInstance().getRebirthsHandler().rebirth(p, "ELF");
+
+                            break;
+                        default:
+                            break;
                     }
+
                     break;
                 case "DWARF":
                     DwarfUtilitySkillsGUI dwarfUtilitySkillsGUI = new DwarfUtilitySkillsGUI();
                     DwarfCombatSkillsGUI dwarfCombatSkillsGUI = new DwarfCombatSkillsGUI();
 
-                    try {
-                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§6Utility")) {
+                    switch (e.getCurrentItem().getItemMeta().getDisplayName()) {
+                        case "§6Utility":
                             p.closeInventory();
                             dwarfUtilitySkillsGUI.open(p);
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cCombat")) {
+
+                            break;
+                        case "§cCombat":
                             p.closeInventory();
                             dwarfCombatSkillsGUI.open(p);
-                        }
-                    } catch (NullPointerException ex) {
-                        ex.printStackTrace();
+
+                            break;
+                        case "§f§lRebirth":
+                            p.closeInventory();
+                            OozeRPG.getInstance().getRebirthsHandler().rebirth(p, "DWARF");
+
+                            break;
+                        default:
+                            break;
                     }
+
                     break;
             }
         }

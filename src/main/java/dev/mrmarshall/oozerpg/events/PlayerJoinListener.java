@@ -20,5 +20,6 @@ public class PlayerJoinListener implements Listener {
         OozeRPG.getInstance().getElfUtilitySkills().updateSleightTimer(p.getUniqueId());
         OozeRPG.getInstance().getDwarfUtilitySkills().updateMaxHealth(p.getUniqueId());
         OozeRPG.getInstance().getDwarfCombatSkills().updateFurious(p.getUniqueId());
+        OozeRPG.getInstance().getRebirthsHandler().loadRebirthEffects(p);
     }
 }

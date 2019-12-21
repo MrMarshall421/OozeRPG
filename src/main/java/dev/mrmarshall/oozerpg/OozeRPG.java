@@ -6,6 +6,7 @@ package dev.mrmarshall.oozerpg;
 
 import dev.mrmarshall.oozerpg.data.LevelingData;
 import dev.mrmarshall.oozerpg.data.PlayerDataHandler;
+import dev.mrmarshall.oozerpg.levels.RebirthsHandler;
 import dev.mrmarshall.oozerpg.races.RaceManager;
 import dev.mrmarshall.oozerpg.skills.dwarf.DwarfCombatSkills;
 import dev.mrmarshall.oozerpg.skills.dwarf.DwarfUtilitySkills;
@@ -37,6 +38,7 @@ public class OozeRPG extends JavaPlugin {
     private DwarfUtilitySkills dwarfUtilitySkills;
     private DwarfCombatSkills dwarfCombatSkills;
     private Permission permissionManager;
+    private RebirthsHandler rebirthsHandler;
 
     public static OozeRPG getInstance() {
         return instance;
@@ -59,6 +61,7 @@ public class OozeRPG extends JavaPlugin {
         dwarfUtilitySkills = new DwarfUtilitySkills();
         dwarfCombatSkills = new DwarfCombatSkills();
         permissionManager = null;
+        rebirthsHandler = new RebirthsHandler();
 
         setupPermissions();
         initHandler.initialize();
@@ -78,11 +81,9 @@ public class OozeRPG extends JavaPlugin {
     public ItemStackCreator getItemStackCreator() {
         return itemStackCreator;
     }
-
     public PlayerDataHandler getPlayerDataHandler() {
         return playerDataHandler;
     }
-
     public RaceManager getRaceManager() {
         return raceManager;
     }
@@ -110,12 +111,15 @@ public class OozeRPG extends JavaPlugin {
     public DwarfUtilitySkills getDwarfUtilitySkills() {
         return dwarfUtilitySkills;
     }
-
     public DwarfCombatSkills getDwarfCombatSkills() {
         return dwarfCombatSkills;
     }
 
     public Permission getPermissionManager() {
         return permissionManager;
+    }
+
+    public RebirthsHandler getRebirthsHandler() {
+        return rebirthsHandler;
     }
 }

@@ -15,7 +15,7 @@
 
     <groupId>dev.mrmarshall</groupId>
     <artifactId>OozeRPG</artifactId>
-    <version>0.0.1</version>
+    <version>1.1.0</version>
 
     <repositories>
         <repository>

@@ -37,10 +37,16 @@ public class PlayerDataHandler {
                 playerFileCfg.set("level", 1);
                 playerFileCfg.set("experience", 0);
                 playerFileCfg.set("skillpoints", 0);
+                playerFileCfg.set("rebirth", 0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void deletePlayerFile(UUID uuid) {
+        File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
+        playerFile.delete();
     }
 
     public File getPlayerFile(UUID uuid) {
@@ -76,6 +82,14 @@ public class PlayerDataHandler {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
 
         playerFileCfg.set("skillpoints", skillpoints);
+        OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
+    }
+
+    public void setPlayerRebirth(UUID uuid, int rebirthLevel) {
+        File playerFile = new File("plugins/OozeRPG/Playerdata/" + uuid.toString() + ".yml");
+        FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(playerFile);
+
+        playerFileCfg.set("rebirth", rebirthLevel);
         OozeRPG.getInstance().getPlayerDataHandler().savePlayerFile(playerFile, playerFileCfg);
     }
 

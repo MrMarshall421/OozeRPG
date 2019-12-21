@@ -54,7 +54,7 @@ public class LevelingSystem implements Listener {
         }
     }
 
-    public void levelUp(UUID uuid) {
+    private void levelUp(UUID uuid) {
         FileConfiguration playerFileCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getPlayerDataHandler().getPlayerFile(uuid));
         FileConfiguration levelsCfg = YamlConfiguration.loadConfiguration(OozeRPG.getInstance().getLevelingData().getLevelsFile());
         Player p = Bukkit.getPlayer(uuid);
