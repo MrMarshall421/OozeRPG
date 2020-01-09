@@ -37,6 +37,7 @@ dev\mrmarshall\oozerpg\gui\elf\ElfUtilitySkillsGUI.class
 dev\mrmarshall\oozerpg\gui\dwarf\DwarfCombatSkillsGUI.class
 dev\mrmarshall\oozerpg\skills\dwarf\DwarfCombatSkills.class
 dev\mrmarshall\oozerpg\gui\RaceSelectionGUI.class
+dev\mrmarshall\oozerpg\levels\RebirthsHandler.class
 dev\mrmarshall\oozerpg\util\SchedulerManager.class
 dev\mrmarshall\oozerpg\InitializationHandler.class
 dev\mrmarshall\oozerpg\util\SchedulerManager$2.class
